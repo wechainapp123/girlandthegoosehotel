@@ -104,6 +104,12 @@
             flex-direction: column;
         }
 
+        /* Safe area support for headers on mobile devices */
+        header {
+            padding-top: env(safe-area-inset-top, 0px) !important;
+            height: calc(4rem + env(safe-area-inset-top, 0px)) !important;
+        }
+
         /* Screen transitions */
         .app-screen {
             position: absolute;
@@ -1342,10 +1348,6 @@
 
             setTimeout(() => {
                 gotoScreen('home');
-                // Trigger push notification after entering
-                setTimeout(() => {
-                    triggerPushNotification();
-                }, 3000);
             }, 2500);
         });
 
