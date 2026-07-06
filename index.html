@@ -1271,22 +1271,7 @@
                         </button>
                     </nav>
 
-                    <!-- ========================================== -->
-                    <!-- DYNAMIC TOAST / NOTIFICATION PREVIEW -->
-                    <!-- ========================================== -->
-                    <div id="push-notification" class="absolute top-[88px] left-4 right-4 bg-charcoal/95 border border-gold/30 text-white rounded-2xl p-4 shadow-xl z-[60] transform -translate-y-[200px] transition-transform duration-500 cursor-pointer flex gap-3 items-center">
-                        <div class="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center text-gold flex-shrink-0">
-                            <span class="material-symbols-outlined">notifications_active</span>
-                        </div>
-                        <div class="flex-grow space-y-1">
-                            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-gold font-bold">
-                                <span>Girl &amp; the Goose</span>
-                                <span class="text-white/40">Just now</span>
-                            </div>
-                            <p class="text-[11px] text-white/90 leading-snug">This Sunday at Girl and the Goose. Chef Gabriela's new seasonal menu is live. Reserve your table now.</p>
-                        </div>
-                        <button onclick="closePushNotification(event)" class="text-white/40 hover:text-white shrink-0"><span class="material-symbols-outlined text-lg">close</span></button>
-                    </div>
+
 
                     <!-- ========================================== -->
                     <!-- DYNAMIC SUCCESS MODAL -->
@@ -1709,22 +1694,7 @@
             });
         }
 
-        // STATE 9: Push notification animation
-        function triggerPushNotification() {
-            const toast = document.getElementById('push-notification');
-            toast.style.transform = 'translateY(0)';
-        }
 
-        function closePushNotification(e) {
-            const toast = document.getElementById('push-notification');
-            toast.style.transform = 'translateY(-200px)';
-            e.stopPropagation();
-        }
-
-        document.getElementById('push-notification').addEventListener('click', () => {
-            closePushNotification(window.event);
-            gotoScreen('events');
-        });
 
         // MODAL control
         function closeSuccessModal() {
