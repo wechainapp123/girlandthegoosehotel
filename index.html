@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girl and the Goose - Mobile App Demo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terracotta: {
+                            DEFAULT: '#C4613A',
+                            dark: '#A04D2C',
+                            light: '#E28E6C',
+                            subtle: '#FAF0EB',
+                        },
+                        ivory: {
+                            DEFAULT: '#FAF3E0',
+                            dark: '#EFE7D0',
+                            light: '#FFFDF6',
+                        },
+                        forest: {
+                            DEFAULT: '#2D5016',
+                            dark: '#1F370F',
+                            light: '#427025',
+                            subtle: '#ECF3E8',
+                        },
+                        gold: {
+                            DEFAULT: '#C9A84C',
+                            dark: '#A58636',
+                            light: '#DCC37E',
+                        },
+                        charcoal: {
+                            DEFAULT: '#1C1C1C',
+                            dark: '#000000',
+                            light: '#333333',
+                            subtle: '#666666',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"EB Garamond"', 'serif'],
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General Customizations */
+        body {
+            background-color: #120C0A;
+            color: #FAF3E0;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .serif-title {
+            font-family: 'EB Garamond', serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #C4613A;
+            border-radius: 10px;
+        }
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #C4613A transparent;
+        }
+
+        /* Phone Frame styles */
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background-color: #000;
+            border-radius: 50px;
+            padding: 11px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            position: relative;
+            border: 4px solid #333;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background-color: #FAF3E0;
+            position: relative;
+            display: flex;
+            flex-col: column;
+        }
+
+        /* Screen transitions */
+        .app-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FAF3E0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.45s cubic-bezier(0.1, 0.76, 0.55, 0.94), opacity 0.45s ease;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .screen-scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 96px; /* Space for persistent bottom nav */
+        }
+
+        .app-screen.active {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+            z-index: 30;
+            pointer-events: auto;
+        }
+
+        .app-screen.left {
+            transform: translate3d(-30%, 0, 0);
+            opacity: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .app-screen.right {
+            transform: translate3d(100%, 0, 0);
+            opacity: 0;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        /* Special backgrounds */
+        .splash-bg {
+            background-color: #110E0C;
+        }
+        
+        .candle-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(196, 97, 58, 0.15) 0%, rgba(196, 97, 58, 0) 70%);
+            filter: blur(40px);
+            animation: flicker 6s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.5; transform: scale(1) translate(0, 0); }
+            50% { opacity: 0.8; transform: scale(1.1) translate(10px, -10px); }
+            100% { opacity: 0.6; transform: scale(0.95) translate(-10px, 10px); }
+        }
+
+        .grain-texture {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            z-index: 50;
+        }
+
+        /* Swatches and branding details */
+        .palette-swatch {
+            transition: transform 0.2s ease;
+        }
+        .palette-swatch:hover {
+            transform: scale(1.05);
+        }
+
+        /* Bottom Nav active state indicator */
+        .nav-item.active {
+            color: #C4613A;
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background-color: #C9A84C;
+            border-radius: 50%;
+            margin-top: 2px;
+        }
+
+        /* Sliders / Toggle classes */
+        .toggle-switch.active {
+            background-color: #2D5016;
+        }
+        .toggle-switch.active .toggle-knob {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-10 px-4 md:px-8 bg-gradient-to-br from-[#1F1410] via-[#120C0A] to-[#0A0706]">
+
+    <div class="fixed inset-0 grain-texture pointer-events-none"></div>
+
+    <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10">
+        
+        <!-- Left Side: Interactive Sidebar Panel (Branding + Navigation Control) -->
+        <div class="lg:col-span-5 space-y-6 text-left pr-0 lg:pr-8">
+            <div class="space-y-2">
+                <span class="text-gold font-semibold uppercase tracking-[0.2em] text-xs">Premium Dining Experience</span>
+                <h1 class="text-4xl lg:text-5xl font-serif serif-title text-ivory-light">Girl and the Goose</h1>
+                <p class="text-sm text-terracotta font-medium tracking-wide">
+                    Anantara Downtown Dubai Hotel • Nicaraguan Chef Gabriela Chamorro
+                </p>
+            </div>
+
+            <div class="bg-charcoal/40 border border-terracotta/10 p-6 rounded-2xl space-y-4 backdrop-blur-md">
+                <p class="text-sm text-ivory/80 leading-relaxed font-light">
+                    Ranked <strong class="text-gold font-bold">#43 on MENA's 50 Best Restaurants 2026</strong>. 
+                    This UI prototype captures the warm, candlelit, rustic yet refined Central American ambiance.
+                </p>
+
+                <!-- Color Palette -->
+                <div class="space-y-2 pt-2 border-t border-ivory/10">
+                    <span class="text-[10px] uppercase tracking-widest text-ivory/50">Artisanal Palette</span>
+                    <div class="flex gap-2">
+                        <div class="flex flex-col items-center gap-1 flex-1">
+                            <div class="w-full h-8 rounded bg-[#C4613A] palette-swatch" title="Deep Terracotta #C4613A"></div>
+                            <span class="text-[9px] text-ivory/40">Terracotta</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 flex-1">
+                            <div class="w-full h-8 rounded bg-[#FAF3E0] border border-ivory/20 palette-swatch" title="Warm Ivory #FAF3E0"></div>
+                            <span class="text-[9px] text-ivory/40">Ivory</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 flex-1">
+                            <div class="w-full h-8 rounded bg-[#2D5016] palette-swatch" title="Forest Green #2D5016"></div>
+                            <span class="text-[9px] text-ivory/40">Forest</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 flex-1">
+                            <div class="w-full h-8 rounded bg-[#C9A84C] palette-swatch" title="Gold #C9A84C"></div>
+                            <span class="text-[9px] text-ivory/40">Gold</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 flex-1">
+                            <div class="w-full h-8 rounded bg-[#1C1C1C] palette-swatch" title="Charcoal #1C1C1C"></div>
+                            <span class="text-[9px] text-ivory/40">Charcoal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Screen Quick Jumper -->
+            <div class="space-y-3">
+                <span class="text-xs uppercase tracking-widest text-ivory/60">Demo Screens Quick Access</span>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    <button onclick="gotoScreen('splash')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-gold"></span> Splash (1)
+                    </button>
+                    <button onclick="gotoScreen('home')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Home (2)
+                    </button>
+                    <button onclick="gotoScreen('menu')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Menu (3)
+                    </button>
+                    <button onclick="gotoScreen('reservations')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Reserve (4)
+                    </button>
+                    <button onclick="gotoScreen('brunch')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-gold"></span> Sunday Brunch (5)
+                    </button>
+                    <button onclick="gotoScreen('private-dining')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-gold"></span> Private Dining (6)
+                    </button>
+                    <button onclick="gotoScreen('gift-cards')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-gold"></span> Gift Cards (7)
+                    </button>
+                    <button onclick="gotoScreen('loyalty')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-gold"></span> Loyalty Rewards (8)
+                    </button>
+                    <button onclick="gotoScreen('events')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Events (9)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive features log -->
+            <div class="bg-[#1C120F]/30 p-4 border border-terracotta/10 rounded-xl space-y-2 text-[12px] text-ivory/60">
+                <span class="text-terracotta font-medium uppercase tracking-wider text-[10px] block">Live State Features</span>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li>Add dishes to order to update the header cart badge.</li>
+                    <li>Toggle "Add to Favourites" heart icons on dishes.</li>
+                    <li>Complete the booking form with guest count (+/-), date, time, and see confirmation.</li>
+                    <li>Adjust Brunch guests and see total AED cost update dynamically.</li>
+                    <li>Select Gift Card amount or input custom value.</li>
+                    <li>Redeem Loyalty Rewards and check visitor log.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: Phone Chassis Container -->
+        <div class="lg:col-span-7 flex justify-center">
+            
+            <!-- Mobile Device Chassis (iPhone 13/14 Pro mockup dimensions) -->
+            <div class="phone-frame scale-90 md:scale-100 origin-center transition-all duration-300">
+                
+
+
+                <!-- Main Screen Viewport -->
+                <div class="phone-screen select-none relative text-charcoal">
+                    <div class="fixed inset-0 grain-texture pointer-events-none opacity-[0.04]"></div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 1: SPLASH SCREEN (Transactional/Initial) -->
+                    <!-- ========================================== -->
+                    <div id="screen-splash" class="app-screen splash-bg active flex flex-col justify-between items-center py-12 px-6 text-center select-none">
+                        <div class="candle-glow top-0 left-0"></div>
+                        <div class="candle-glow bottom-0 right-0"></div>
+                        
+                        <div class="w-full flex justify-center pt-16">
+                            <span class="text-gold tracking-[0.3em] uppercase text-[10px]">Gabriela Chamorro</span>
+                        </div>
+
+                        <!-- Centered Logo Content -->
+                        <div class="space-y-6 z-10">
+                            <!-- Candlelight glow circle -->
+                            <div class="w-36 h-36 mx-auto rounded-full overflow-hidden border border-terracotta/20 relative shadow-[0_0_50px_rgba(196,97,58,0.25)] flex items-center justify-center bg-charcoal/40">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuATNxLXMnESfuVOAmycZNBnC-bLCnNe7fd4xYxPJItol1mcC4LT1JEAGqWGtKiffQA5YeQOKKTLkZear7rTh_qVjD5nZyd2GH9z8h7lPldr41ulssojkLxryaTfSxD_phfaSRwbRA-C-tVbVJzJADNb4OqIq-THfRdfU_Zhol_Y_3H6lHD0D7Cy3Xsr2mVlDyH0mvIuxxXLThfO1Tm1uzbetFGXorwuNTfNyvD8d_D7_AJpZeTU5os4" 
+                                     alt="Intimate Candlelight logo" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60"></div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <h1 class="font-serif text-3xl md:text-4xl text-ivory-light font-semibold tracking-tight">Girl &amp; the Goose</h1>
+                                <div class="w-12 h-[1px] bg-gold/50 mx-auto"></div>
+                                <p class="text-[12px] text-terracotta font-sans tracking-[0.2em] uppercase max-w-[280px] mx-auto leading-relaxed">
+                                    A Taste of Central America in the Heart of Dubai
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pb-8 space-y-4 z-10">
+                            <!-- Micro-loading bar -->
+                            <div class="w-24 h-[1px] bg-ivory/10 mx-auto rounded-full overflow-hidden">
+                                <div class="h-full bg-gold rounded-full w-full origin-left duration-[2000ms] transition-transform ease-out" id="splash-progress" style="transform: scaleX(0);"></div>
+                            </div>
+                            <span class="text-[9px] uppercase tracking-widest text-ivory/40">Loading Dubai's Best Kept Secret</span>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 2: HOME SCREEN (Functional/Main) -->
+                    <!-- ========================================== -->
+                    <div id="screen-home" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <span class="material-symbols-outlined text-charcoal font-light text-2xl">menu_open</span>
+                            <span class="font-serif text-lg font-bold text-terracotta tracking-tight">Girl &amp; the Goose</span>
+                            <button onclick="gotoScreen('menu')" class="relative flex items-center justify-center w-8 h-8 hover:opacity-80 active:scale-95 duration-150">
+                                <span class="material-symbols-outlined text-charcoal text-2xl">shopping_bag</span>
+                                <span id="cart-badge" class="absolute -top-1 -right-1 bg-terracotta text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                            </button>
+                        </header>
+
+                        <!-- Scrollable content -->
+                        <div class="screen-scroll-container custom-scrollbar">
+                            
+                            <!-- Welcome Section -->
+                            <div class="p-6 text-center space-y-2 bg-[#FAF0EB]/40 border-b border-terracotta/5">
+                                <span class="text-[10px] tracking-[0.25em] uppercase text-terracotta font-bold">Bienvenidos</span>
+                                <h2 class="font-serif text-2xl text-charcoal font-semibold tracking-tight">Welcome to Girl and the Goose</h2>
+                                
+                                <!-- Gold Badge -->
+                                <div class="inline-flex items-center gap-2 px-3 py-1 bg-gold/10 border border-gold/30 rounded-full text-gold-dark text-[11px] font-medium tracking-wide mx-auto mt-2">
+                                    <span class="material-symbols-outlined text-sm font-semibold">star</span>
+                                    <span>MENA's 50 Best Restaurants 2026 #43</span>
+                                </div>
+                            </div>
+
+                            <!-- Featured Dish Card -->
+                            <div class="p-6">
+                                <span class="text-[10px] uppercase tracking-widest text-charcoal/50 block mb-3 font-semibold">Featured Dish</span>
+                                <div class="bg-ivory-light border border-terracotta/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(45,36,30,0.04)]">
+                                    <div class="h-44 overflow-hidden relative">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGfQNhU-b4-z1SWyYpGTF5egoYrDxcylsevABlWnn4VEezS2iI0x_nGkDO9N3Hz4JNbKPi2QpmI-BoUYe-T9GU2-IoLNakMpvgYm5Wc-eYLMsCCwYib5O6dPTQ2Gtl4c4NBLHLA5nV5Xb_gCJvqSd1pRI0MdaWCieYSxVvfVKZMck9F3UPvKSFpgUFqkSfTNzDyoMmFUqay_zEZeBuxy0EjFbf1CI5_3zQlW9kB1AMFU4AcVZRS8TS" 
+                                             alt="Featured Salvadoran Pupusas" class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent"></div>
+                                        <span class="absolute bottom-4 left-4 text-white font-serif text-lg font-bold">Salvadoran Pupusas</span>
+                                    </div>
+                                    <div class="p-5 space-y-4">
+                                        <!-- Personal note from Chef Gabriela -->
+                                        <div class="italic text-xs text-charcoal/70 border-l border-terracotta/30 pl-3 leading-relaxed">
+                                            "These pupusas are a tribute to my grandmother’s kitchen in San Salvador. Each one is hand-patted with organic masa and filled with traditional loroco and artisanal cheese."
+                                        </div>
+                                        <div class="flex justify-between items-center pt-2">
+                                            <span class="text-xs font-semibold text-terracotta">— Chef Gabriela Chamorro</span>
+                                            <button onclick="gotoScreen('menu')" class="text-xs text-gold-dark hover:text-gold font-bold flex items-center gap-1 uppercase tracking-wider">
+                                                Order Now <span class="material-symbols-outlined text-[10px]">arrow_forward</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4 Quick Actions in Terracotta -->
+                            <div class="px-6 space-y-3">
+                                <span class="text-[10px] uppercase tracking-widest text-charcoal/50 block font-semibold">Quick Actions</span>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="gotoScreen('reservations')" class="h-20 bg-terracotta hover:bg-terracotta-dark text-white rounded-xl p-4 flex flex-col justify-between text-left transition-all active:scale-[0.98] shadow-md shadow-terracotta/10">
+                                        <span class="material-symbols-outlined text-lg">event_seat</span>
+                                        <span class="text-[11px] font-semibold uppercase tracking-wider">Reserve a Table</span>
+                                    </button>
+                                    <button onclick="gotoScreen('menu')" class="h-20 bg-terracotta hover:bg-terracotta-dark text-white rounded-xl p-4 flex flex-col justify-between text-left transition-all active:scale-[0.98] shadow-md shadow-terracotta/10">
+                                        <span class="material-symbols-outlined text-lg">restaurant_menu</span>
+                                        <span class="text-[11px] font-semibold uppercase tracking-wider">View Menu</span>
+                                    </button>
+                                    <button onclick="gotoScreen('brunch')" class="h-20 bg-terracotta hover:bg-terracotta-dark text-white rounded-xl p-4 flex flex-col justify-between text-left transition-all active:scale-[0.98] shadow-md shadow-terracotta/10">
+                                        <span class="material-symbols-outlined text-lg">sunny</span>
+                                        <span class="text-[11px] font-semibold uppercase tracking-wider">Sunday Brunch</span>
+                                    </button>
+                                    <button onclick="gotoScreen('private-dining')" class="h-20 bg-terracotta hover:bg-terracotta-dark text-white rounded-xl p-4 flex flex-col justify-between text-left transition-all active:scale-[0.98] shadow-md shadow-terracotta/10">
+                                        <span class="material-symbols-outlined text-lg">hotel_class</span>
+                                        <span class="text-[11px] font-semibold uppercase tracking-wider">Private Dining</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Upcoming Event Banner -->
+                            <div class="p-6">
+                                <div onclick="gotoScreen('brunch')" class="bg-charcoal text-white rounded-xl p-5 flex items-center justify-between border border-gold/20 hover:border-gold/50 cursor-pointer shadow-lg shadow-charcoal/30">
+                                    <div class="space-y-1 flex-1 pr-4">
+                                        <span class="text-[9px] uppercase tracking-widest text-gold font-bold">Upcoming Event</span>
+                                        <h4 class="font-serif text-sm font-semibold leading-snug">Sunday Brunch This Weekend</h4>
+                                        <p class="text-[11px] text-white/60">Bottomless Cocktails Available.</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-gold text-2xl font-light">arrow_circle_right</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 3: MENU SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-menu" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta">Our Menu</span>
+                            <div class="relative w-8 h-8 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-charcoal text-2xl">shopping_bag</span>
+                                <span id="menu-cart-badge" class="absolute -top-1 -right-1 bg-terracotta text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                            </div>
+                        </header>
+
+                        <!-- Horizontal Scroll Category Tabs -->
+                        <div class="h-12 border-b border-terracotta/5 bg-ivory/95 flex items-center px-4 overflow-x-auto hide-scrollbar shrink-0 gap-4">
+                            <button onclick="filterMenu('all')" class="menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta bg-terracotta text-white font-medium whitespace-nowrap">All</button>
+                            <button onclick="filterMenu('starters')" class="menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta/10 text-charcoal/70 hover:bg-terracotta/5 whitespace-nowrap">Starters</button>
+                            <button onclick="filterMenu('mains')" class="menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta/10 text-charcoal/70 hover:bg-terracotta/5 whitespace-nowrap">Mains</button>
+                            <button onclick="filterMenu('desserts')" class="menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta/10 text-charcoal/70 hover:bg-terracotta/5 whitespace-nowrap">Desserts</button>
+                            <button onclick="filterMenu('drinks')" class="menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta/10 text-charcoal/70 hover:bg-terracotta/5 whitespace-nowrap">Cocktails &amp; Wine</button>
+                        </div>
+
+                        <!-- Scrollable menu cards -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Section: Starters -->
+                            <div class="menu-cat-section space-y-4" id="cat-starters">
+                                <div class="flex items-center gap-2 border-b border-terracotta/10 pb-1">
+                                    <span class="font-serif text-sm font-bold text-terracotta uppercase tracking-wide">Starters</span>
+                                </div>
+
+                                <!-- Gigi's Guacamole -->
+                                <div class="menu-item-card bg-ivory-light border border-terracotta/5 rounded-xl overflow-hidden shadow-sm flex flex-col group" data-category="starters">
+                                    <div class="h-36 overflow-hidden relative">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvN6ZBp2aieueIxGL6Y7UxXHUvc1VPgdQG4Qgkcfg68-R6d7JKfgvdBg_UjK7Hw9qMU6Oiy-nshUy-PjWceyHTwBgmUCjAoMYEHoZHsFltKFE1quiO8wSnzW1ex9bSnGwMJiNHsT01uKHO7Gyneuw5Y4oaZk_9M_Ydv5MDfD7cQtTTj7xNXYzQPvcVUE7hKxu2I6C7Nr6t5jBA57uqliT7mf6YJW439VMKyPECHC2r7EviyW36SJ9I" 
+                                             alt="Gigi's Guacamole" class="w-full h-full object-cover">
+                                        <button onclick="toggleFav(this, 'Gigi\'s Guacamole')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-terracotta shadow-md">
+                                            <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+                                        </button>
+                                        <span class="absolute bottom-3 left-3 bg-secondary text-white text-[9px] px-2 py-0.5 rounded uppercase tracking-wider font-semibold">Signature</span>
+                                    </div>
+                                    <div class="p-4 space-y-2 flex-grow flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex justify-between items-start">
+                                                <h4 class="font-serif text-sm font-bold text-charcoal">Gigi's Guacamole</h4>
+                                                <span class="text-xs font-semibold text-terracotta">65 AED</span>
+                                            </div>
+                                            <p class="text-[11px] text-charcoal/60 leading-relaxed font-light mt-1">Hand-mashed Hass avocado, lime zest, serrano chili, and roasted pumpkin seeds. Served with corn crisps.</p>
+                                        </div>
+                                        <button onclick="addToOrder('Gigi\'s Guacamole')" class="w-full bg-terracotta hover:bg-terracotta-dark text-white text-[10px] uppercase font-bold py-2 rounded-lg flex items-center justify-center gap-1 mt-2">
+                                            Add to Order <span class="material-symbols-outlined text-[12px]">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Miso Seabass Ceviche -->
+                                <div class="menu-item-card bg-ivory-light border border-terracotta/5 rounded-xl overflow-hidden shadow-sm flex flex-col group" data-category="starters">
+                                    <div class="h-36 overflow-hidden relative">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYi0bMpFGXdhrKxQRMGXOz5EvC49bceuRKehvZ45I_8Ydki_0FpmsNUUWF119bVXrb-BOB3L_nWuKDNDjzNmkxHjRc5jpQdFeRPyaHbNHl_0AOPbaONgizRwSIYTRKxXTkLDUgPnVChZpT1jGHkFiuFbIBF8OrclZBIqa0-dbPVQYd6_7_hNofXDjDixxFJJV7zROrziJWB1dX9UfjnyletQS7z-03mPt4C1JQC75mSEc8sT7qE6TW" 
+                                             alt="Miso Seabass Ceviche" class="w-full h-full object-cover">
+                                        <button onclick="toggleFav(this, 'Miso Seabass Ceviche')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-terracotta shadow-md">
+                                            <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+                                        </button>
+                                        <span class="absolute bottom-3 left-3 bg-secondary text-white text-[9px] px-2 py-0.5 rounded uppercase tracking-wider font-semibold">Signature</span>
+                                    </div>
+                                    <div class="p-4 space-y-2 flex-grow flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex justify-between items-start">
+                                                <h4 class="font-serif text-sm font-bold text-charcoal">Miso Seabass Ceviche</h4>
+                                                <span class="text-xs font-semibold text-terracotta">85 AED</span>
+                                            </div>
+                                            <p class="text-[11px] text-charcoal/60 leading-relaxed font-light mt-1">Wild-caught seabass, white miso infusion, charred corn, sweet potato textures, and crispy quinoa.</p>
+                                        </div>
+                                        <button onclick="addToOrder('Miso Seabass Ceviche')" class="w-full bg-terracotta hover:bg-terracotta-dark text-white text-[10px] uppercase font-bold py-2 rounded-lg flex items-center justify-center gap-1 mt-2">
+                                            Add to Order <span class="material-symbols-outlined text-[12px]">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section: Mains -->
+                            <div class="menu-cat-section space-y-4" id="cat-mains">
+                                <div class="flex items-center gap-2 border-b border-terracotta/10 pb-1">
+                                    <span class="font-serif text-sm font-bold text-terracotta uppercase tracking-wide">Mains</span>
+                                </div>
+
+                                <!-- Clay Pot Short Ribs -->
+                                <div class="menu-item-card bg-ivory-light border border-terracotta/5 rounded-xl overflow-hidden shadow-sm flex flex-col group" data-category="mains">
+                                    <div class="h-36 overflow-hidden relative">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDr9KOiPilb_Au_HVif6JRSk25sbOK4TcrVOb1lRJahEBnt9BQ-sNvDVlT2VmkSSOpXdYDUfHayi2Ag7m0shOzF_INeen8SmHNuSpkzTYx7ZUIlyOIfPT8cgI6gi9DjtcXMZM2o1DFStiMTc4tgSWmViLzRpHLbc3W7mJEESHTMzWKDtFe4QOsA-0gRpGLD7NyFOJZJvZpg3YnjIHq2WYI0yiIEnXUswk9pEnFux7m-MqWtk0IUJwA" 
+                                             alt="Clay Pot Short Ribs" class="w-full h-full object-cover">
+                                        <button onclick="toggleFav(this, 'Clay Pot Short Ribs')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-terracotta shadow-md">
+                                            <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+                                        </button>
+                                        <span class="absolute bottom-3 left-3 bg-secondary text-white text-[9px] px-2 py-0.5 rounded uppercase tracking-wider font-semibold">Signature</span>
+                                    </div>
+                                    <div class="p-4 space-y-2 flex-grow flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex justify-between items-start">
+                                                <h4 class="font-serif text-sm font-bold text-charcoal">Clay Pot Short Ribs</h4>
+                                                <span class="text-xs font-semibold text-terracotta">165 AED</span>
+                                            </div>
+                                            <p class="text-[11px] text-charcoal/60 leading-relaxed font-light mt-1">48-hour slow braised Wagyu short ribs, cacao-infused jus, smoked mash, and heritage root vegetables.</p>
+                                        </div>
+                                        <button onclick="addToOrder('Clay Pot Short Ribs')" class="w-full bg-terracotta hover:bg-terracotta-dark text-white text-[10px] uppercase font-bold py-2 rounded-lg flex items-center justify-center gap-1 mt-2">
+                                            Add to Order <span class="material-symbols-outlined text-[12px]">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Salvadoran Pupusas -->
+                                <div class="menu-item-card bg-ivory-light border border-terracotta/5 rounded-xl overflow-hidden shadow-sm flex flex-col group" data-category="mains">
+                                    <div class="h-36 overflow-hidden relative">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbrOVZEEqz5U3Bb9JPKPEzOBPALUChGhH6UvlFfhLpxAMavzE89O40lSljPMzUV-odTZWU0aRRfA3IrWR-x55knI5nw3hgkg7y5hnvWsvkVSRyjo5bLXFFgsyScZTGaYdhAEixJ6I1nXPYmqZyqTt9muuOT68Nro6crnc3ACthpqSA6MuJ-geqPe8QVGRe1Mnfhp1s0iAcanDJuGVCbkXwzbhzqc6PoJKlu4SG54edlWNcT46kql3W" 
+                                             alt="Salvadoran Pupusas" class="w-full h-full object-cover">
+                                        <button onclick="toggleFav(this, 'Salvadoran Pupusas')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-terracotta shadow-md">
+                                            <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+                                        </button>
+                                        <span class="absolute bottom-3 left-3 bg-secondary text-white text-[9px] px-2 py-0.5 rounded uppercase tracking-wider font-semibold">Signature</span>
+                                    </div>
+                                    <div class="p-4 space-y-2 flex-grow flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex justify-between items-start">
+                                                <h4 class="font-serif text-sm font-bold text-charcoal">Salvadoran Pupusas</h4>
+                                                <span class="text-xs font-semibold text-terracotta">95 AED</span>
+                                            </div>
+                                            <p class="text-[11px] text-charcoal/60 leading-relaxed font-light mt-1">Handmade corn masa stuffed with cheese and Loroco flowers. Served with curtido slaw and salsa roja.</p>
+                                        </div>
+                                        <button onclick="addToOrder('Salvadoran Pupusas')" class="w-full bg-terracotta hover:bg-terracotta-dark text-white text-[10px] uppercase font-bold py-2 rounded-lg flex items-center justify-center gap-1 mt-2">
+                                            Add to Order <span class="material-symbols-outlined text-[12px]">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section: Desserts -->
+                            <div class="menu-cat-section space-y-4" id="cat-desserts">
+                                <div class="flex items-center gap-2 border-b border-terracotta/10 pb-1">
+                                    <span class="font-serif text-sm font-bold text-terracotta uppercase tracking-wide">Desserts</span>
+                                </div>
+
+                                <!-- Brown Miso Ice Cream -->
+                                <div class="menu-item-card bg-ivory-light border border-terracotta/5 rounded-xl overflow-hidden shadow-sm flex flex-col group" data-category="desserts">
+                                    <div class="h-36 overflow-hidden relative">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_0bDe3eOZIOgRvl-v4zDRmhQxXVTILtLEjhTU4heZJInzI0WOLWWeH4yt-AARqzAERoXXdJSnroSE2X8QT-W03jE27hJTf4oGnqr6vVryS5GyZ73GKH55Emat-_I8BFkX7hlRlj968R4y-UTH6Q3dGgDP-02lLy8dpAVecVvBR80o7AbxObbhEpfMEbx9sTMR6HPI6N0iLxqjdIjkIIebt3RnsfVeyQMY08GLleT5kHyI-7xVB4OV" 
+                                             alt="Brown Miso Ice Cream" class="w-full h-full object-cover">
+                                        <button onclick="toggleFav(this, 'Brown Miso Ice Cream')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-terracotta shadow-md">
+                                            <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+                                        </button>
+                                        <span class="absolute bottom-3 left-3 bg-secondary text-white text-[9px] px-2 py-0.5 rounded uppercase tracking-wider font-semibold">Signature</span>
+                                    </div>
+                                    <div class="p-4 space-y-2 flex-grow flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex justify-between items-start">
+                                                <h4 class="font-serif text-sm font-bold text-charcoal">Brown Miso Ice Cream</h4>
+                                                <span class="text-xs font-semibold text-terracotta">45 AED</span>
+                                            </div>
+                                            <p class="text-[11px] text-charcoal/60 leading-relaxed font-light mt-1">Caramelized brown miso ice cream with a hint of sea salt, served with cocoa nib crumble.</p>
+                                        </div>
+                                        <button onclick="addToOrder('Brown Miso Ice Cream')" class="w-full bg-terracotta hover:bg-terracotta-dark text-white text-[10px] uppercase font-bold py-2 rounded-lg flex items-center justify-center gap-1 mt-2">
+                                            Add to Order <span class="material-symbols-outlined text-[12px]">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 4: RESERVATIONS SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-reservations" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta">Reserve Your Table</span>
+                            <div class="w-8"></div>
+                        </header>
+
+                        <!-- Scrollable form -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Guest Selector -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60">Number of Guests</label>
+                                <div class="flex items-center justify-between bg-ivory-light border border-terracotta/10 rounded-xl p-3">
+                                    <span class="text-sm font-bold font-serif text-charcoal" id="res-party-display">2 Guests</span>
+                                    <div class="flex gap-2">
+                                        <button onclick="adjustResParty(-1)" class="w-8 h-8 rounded-full border border-terracotta/30 flex items-center justify-center text-charcoal hover:bg-terracotta/10 transition-colors">
+                                            <span class="material-symbols-outlined text-sm font-semibold">remove</span>
+                                        </button>
+                                        <button onclick="adjustResParty(1)" class="w-8 h-8 rounded-full border border-terracotta/30 flex items-center justify-center text-charcoal hover:bg-terracotta/10 transition-colors">
+                                            <span class="material-symbols-outlined text-sm font-semibold">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Area Toggle -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60">Seating Preference</label>
+                                <div class="grid grid-cols-2 gap-2 p-1 bg-ivory-dark rounded-xl">
+                                    <button id="btn-area-indoor" onclick="setResArea('Indoor')" class="py-2 text-xs rounded-lg font-semibold bg-ivory-light text-terracotta shadow-sm transition-all duration-300">Indoor</button>
+                                    <button id="btn-area-terrace" onclick="setResArea('Terrace')" class="py-2 text-xs rounded-lg font-semibold text-charcoal/60 hover:text-charcoal transition-all duration-300">Terrace</button>
+                                </div>
+                            </div>
+
+                            <!-- Calendar view in Terracotta -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60">Select Date</label>
+                                <div class="bg-ivory-light border border-terracotta/10 rounded-xl p-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="font-serif text-xs font-bold text-charcoal">July 2026</span>
+                                        <div class="flex gap-1">
+                                            <span class="material-symbols-outlined text-[16px] text-charcoal/40">chevron_left</span>
+                                            <span class="material-symbols-outlined text-[16px] text-charcoal/40">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-7 gap-y-2 text-center text-[10px]">
+                                        <!-- Week headers -->
+                                        <div class="text-charcoal/40 font-bold">M</div>
+                                        <div class="text-charcoal/40 font-bold">T</div>
+                                        <div class="text-charcoal/40 font-bold">W</div>
+                                        <div class="text-charcoal/40 font-bold">T</div>
+                                        <div class="text-charcoal/40 font-bold">F</div>
+                                        <div class="text-charcoal/40 font-bold">S</div>
+                                        <div class="text-charcoal/40 font-bold">S</div>
+                                        <!-- Days -->
+                                        <div class="p-1 text-charcoal/30">29</div>
+                                        <div class="p-1 text-charcoal/30">30</div>
+                                        <button onclick="selectResDate(1)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">1</button>
+                                        <button onclick="selectResDate(2)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">2</button>
+                                        <button onclick="selectResDate(3)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">3</button>
+                                        <button onclick="selectResDate(4)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">4</button>
+                                        <button onclick="selectResDate(5)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">5</button>
+                                        <!-- Active Day -->
+                                        <button onclick="selectResDate(6)" class="res-date-btn p-1 font-bold rounded bg-terracotta text-white shadow-sm" id="default-res-date">6</button>
+                                        <button onclick="selectResDate(7)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">7</button>
+                                        <button onclick="selectResDate(8)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">8</button>
+                                        <button onclick="selectResDate(9)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">9</button>
+                                        <button onclick="selectResDate(10)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">10</button>
+                                        <button onclick="selectResDate(11)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">11</button>
+                                        <button onclick="selectResDate(12)" class="res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal">12</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Time Picker -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60">Select Time</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="selectResTime(this)" class="res-time-btn py-2 px-3 border border-terracotta bg-terracotta/10 text-terracotta text-xs font-bold rounded-lg transition-all">19:00</button>
+                                    <button onclick="selectResTime(this)" class="res-time-btn py-2 px-3 border border-terracotta/15 hover:border-terracotta text-xs text-charcoal/80 rounded-lg transition-all">19:30</button>
+                                    <button onclick="selectResTime(this)" class="res-time-btn py-2 px-3 border border-terracotta/15 hover:border-terracotta text-xs text-charcoal/80 rounded-lg transition-all">20:00</button>
+                                    <button onclick="selectResTime(this)" class="res-time-btn py-2 px-3 border border-terracotta/15 hover:border-terracotta text-xs text-charcoal/80 rounded-lg transition-all">20:30</button>
+                                    <button onclick="selectResTime(this)" class="res-time-btn py-2 px-3 border border-terracotta/15 hover:border-terracotta text-xs text-charcoal/80 rounded-lg transition-all">21:00</button>
+                                    <button onclick="selectResTime(this)" class="res-time-btn py-2 px-3 border border-terracotta/15 hover:border-terracotta text-xs text-charcoal/80 rounded-lg transition-all">21:30</button>
+                                </div>
+                            </div>
+
+                            <!-- Occasion & Special Requests -->
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block mb-1">Special Occasion</label>
+                                    <select class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2 focus:ring-terracotta focus:border-terracotta text-charcoal" id="res-occasion">
+                                        <option value="none">None / Regular Dining</option>
+                                        <option value="anniversary">Anniversary</option>
+                                        <option value="birthday">Birthday</option>
+                                        <option value="business">Business Dinner</option>
+                                        <option value="celebration">Celebration</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block mb-1">Special Requests</label>
+                                    <textarea class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs p-2 focus:ring-terracotta focus:border-terracotta text-charcoal resize-none" rows="2" placeholder="Allergies, table preferences, etc."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Button in Deep Terracotta -->
+                            <div class="pt-2">
+                                <button onclick="confirmBooking()" class="w-full bg-terracotta hover:bg-terracotta-dark text-white font-bold py-4 rounded-full text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.98]">
+                                    Confirm Reservation
+                                </button>
+                            </div>
+
+                            <!-- Note at bottom -->
+                            <p class="text-center text-[10px] text-charcoal/50 italic pt-2">
+                                Direct booking, no third party redirect
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 5: SUNDAY BRUNCH SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-brunch" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta">Sunday Brunch</span>
+                            <div class="w-8"></div>
+                        </header>
+
+                        <!-- Scrollable content -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Hero Image of Brunch Table -->
+                            <div class="h-40 rounded-xl overflow-hidden relative shadow-md">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnb1hitLoI4ahtMlioWWWnDNH9W50NVjBY9ygF42LKo5MFBpgQqBCK4heXUW-qa_mb2YzNDDJbUaT5X-FEsZP3VRkR3zIr7mMg1rpF4ME0jh2yUAnAYNnicRCUTy7OGRSjUdKoYTzp-KGr0gU8qHxW_d_BTvLyF-LKtPbCw8VxtpbBruDGv1h_SqyZfoOPTHilBnda9uRRANagG4dcaUPuw2L-T4NVA85V-fUh7ixARVjk7MlihTMT" 
+                                     alt="Sunday Brunch Spread" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 text-white">
+                                    <span class="text-[9px] uppercase tracking-widest text-gold font-bold">Chef Gabriela's</span>
+                                    <h3 class="font-serif text-base font-bold">Nicaraguan Courtyard Sunday Brunch</h3>
+                                </div>
+                            </div>
+
+                            <!-- Two Package Cards -->
+                            <div class="space-y-3">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Select Package</label>
+                                
+                                <!-- Card 1: Food Only -->
+                                <div id="pkg-food" onclick="selectBrunchPackage('food', 249)" class="border-2 border-terracotta bg-terracotta/5 rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all duration-300">
+                                    <div class="space-y-1">
+                                        <h4 class="font-serif text-sm font-bold text-terracotta">Food Only Package</h4>
+                                        <p class="text-[11px] text-charcoal/60">Traditional flavors &amp; courtyard signatures</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-bold text-terracotta block">249 AED</span>
+                                        <span class="text-[9px] text-charcoal/50 uppercase">Per Guest</span>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Bottomless -->
+                                <div id="pkg-drinks" onclick="selectBrunchPackage('drinks', 357)" class="border border-terracotta/20 bg-ivory-light rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all duration-300">
+                                    <div class="space-y-1">
+                                        <h4 class="font-serif text-sm font-bold text-charcoal">Bottomless Cocktails</h4>
+                                        <p class="text-[11px] text-charcoal/60">Courtyard cocktails, sangria &amp; beer</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-bold text-charcoal block">357 AED</span>
+                                        <span class="text-[9px] text-charcoal/50 uppercase">Per Guest</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Time Slots -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Select Time Slot</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="selectBrunchTime(this)" class="brunch-time-btn py-2 text-xs font-bold rounded-lg border border-terracotta bg-terracotta/10 text-terracotta transition-all">12pm</button>
+                                    <button onclick="selectBrunchTime(this)" class="brunch-time-btn py-2 text-xs text-charcoal/80 rounded-lg border border-terracotta/10 transition-all">1pm</button>
+                                    <button onclick="selectBrunchTime(this)" class="brunch-time-btn py-2 text-xs text-charcoal/80 rounded-lg border border-terracotta/10 transition-all">2pm</button>
+                                </div>
+                            </div>
+
+                            <!-- Guest count selector -->
+                            <div class="flex items-center justify-between border-t border-b border-terracotta/10 py-4">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Guest Count</span>
+                                    <span class="text-xs text-charcoal/70">Courtyard table seating</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <button onclick="adjustBrunchGuests(-1)" class="w-8 h-8 rounded-full border border-terracotta/30 flex items-center justify-center text-charcoal hover:bg-terracotta/10 transition-colors">
+                                        <span class="material-symbols-outlined text-sm font-semibold">remove</span>
+                                    </button>
+                                    <span class="text-sm font-bold font-serif text-charcoal w-6 text-center" id="brunch-guests">2</span>
+                                    <button onclick="adjustBrunchGuests(1)" class="w-8 h-8 rounded-full border border-terracotta/30 flex items-center justify-center text-charcoal hover:bg-terracotta/10 transition-colors">
+                                        <span class="material-symbols-outlined text-sm font-semibold">add</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Push notification opt-in toggle -->
+                            <div class="flex items-center justify-between bg-ivory-light border border-terracotta/5 p-4 rounded-xl">
+                                <div class="pr-4">
+                                    <span class="text-xs font-semibold text-charcoal block">Brunch Announcements</span>
+                                    <p class="text-[10px] text-charcoal/50">Get weekly announcements &amp; special discounts</p>
+                                </div>
+                                <button onclick="toggleAnnouncements(this)" class="toggle-switch relative w-10 h-5 bg-charcoal/20 rounded-full p-0.5 transition-colors duration-300">
+                                    <div class="toggle-knob w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 pointer-events-none"></div>
+                                </button>
+                            </div>
+
+                            <!-- Booking summary & CTA in Gold -->
+                            <div class="space-y-3 pt-2">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-xs text-charcoal/60 uppercase">Brunch Total</span>
+                                    <span id="brunch-total-display" class="font-serif text-xl font-bold text-terracotta">498 AED</span>
+                                </div>
+                                <button onclick="bookBrunch()" class="w-full bg-gold hover:bg-gold-dark text-charcoal-dark font-bold py-4 rounded-full text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.98]">
+                                    Book Brunch
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 6: PRIVATE DINING SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-private-dining" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta text-center flex-1 pr-6">Private Dining &amp; Events</span>
+                        </header>
+
+                        <!-- Scrollable content -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Two Room Cards -->
+                            <div class="space-y-4">
+                                <span class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Event Venues</span>
+                                
+                                <!-- Room 1 -->
+                                <div class="bg-ivory-light border border-terracotta/10 rounded-xl overflow-hidden shadow-sm flex flex-col">
+                                    <div class="h-32 overflow-hidden">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF_qint_nMdmL1iMCPwAbz5B1GDHKvrBJVKjiA8kGJXwmZ-hs2K6wGPBv7WiG_SWlDLVHDnydRbeQ9sBr5l9VcUcsu__foutS1e4wKlkyDNkcVaZzx8VvZeB9x9rCpaxvy_qgRL927UtNJ4XzPF8S9H8-Uss2fj5tibeU8vquvKv2rHtYkOZoBugVK-jd6WmcALqEJxrf8eTZgngnfqj40DgemIwSjBY1yyqPqwnNXmeTGMk1mII_p" 
+                                             alt="La Sala Room" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="p-4 space-y-2">
+                                        <div class="flex justify-between items-center">
+                                            <h4 class="font-serif text-sm font-bold text-terracotta">La Sala Room</h4>
+                                            <span class="text-[9px] uppercase font-bold text-secondary-dark px-2 py-0.5 bg-secondary/10 rounded-full">Indoor Gallery</span>
+                                        </div>
+                                        <p class="text-[11px] text-charcoal/70 leading-relaxed font-light">Surrounded by hand-curated Central American textiles and earthy ceramics. Capacity: Up to 24 guests.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Room 2 -->
+                                <div class="bg-ivory-light border border-terracotta/10 rounded-xl overflow-hidden shadow-sm flex flex-col">
+                                    <div class="h-32 overflow-hidden">
+                                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbkZ5Y_lqNjL7wZy5R_XTo5fbVOEbeYx09PytGwsVpBXH2HKUKlxf2S3K3K7CQL8x6M2dVYKNYzHmWi3Vq0w1AjwAr6oLtSyt6ztHbMja1wv42b2bhEF5t85uUMNjH-a-71zSr0Q-bxrHeL37JaY7FuW3k2OYTHst1fOu-aXir4WZ3RJhvE0TdtkbcNfznjl6yyXjuwno5m6Ez8VPiExa8udGRiU7N5bhUasaJlEmpvBY2xWfvv0DU" 
+                                             alt="The Terrace" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="p-4 space-y-2">
+                                        <div class="flex justify-between items-center">
+                                            <h4 class="font-serif text-sm font-bold text-terracotta">The Terrace</h4>
+                                            <span class="text-[9px] uppercase font-bold text-secondary-dark px-2 py-0.5 bg-secondary/10 rounded-full">Alfresco Sanctuary</span>
+                                        </div>
+                                        <p class="text-[11px] text-charcoal/70 leading-relaxed font-light">An open-air garden setting under the stars. Perfect for cocktail receptions. Capacity: Up to 45 guests.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Inquiry Form -->
+                            <div class="space-y-4 pt-2 border-t border-terracotta/10">
+                                <span class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Submit Inquiry</span>
+                                
+                                <!-- Event Type Selector -->
+                                <div class="space-y-2">
+                                    <span class="text-[10px] text-charcoal/50 font-semibold block">Event Type</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button onclick="selectEventType(this)" class="event-type-chip px-3 py-1 text-[10px] rounded-full border border-terracotta bg-terracotta text-white font-bold">Corporate Dinner</button>
+                                        <button onclick="selectEventType(this)" class="event-type-chip px-3 py-1 text-[10px] rounded-full border border-terracotta/20 text-charcoal/70 hover:bg-terracotta/5">Birthday</button>
+                                        <button onclick="selectEventType(this)" class="event-type-chip px-3 py-1 text-[10px] rounded-full border border-terracotta/20 text-charcoal/70 hover:bg-terracotta/5">Wedding Anniversary</button>
+                                        <button onclick="selectEventType(this)" class="event-type-chip px-3 py-1 text-[10px] rounded-full border border-terracotta/20 text-charcoal/70 hover:bg-terracotta/5">Intimate Celebration</button>
+                                    </div>
+                                </div>
+
+                                <!-- Inputs -->
+                                <div class="space-y-3">
+                                    <input type="text" placeholder="Name" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2 focus:ring-terracotta focus:border-terracotta text-charcoal">
+                                    <input type="email" placeholder="Email" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2 focus:ring-terracotta focus:border-terracotta text-charcoal">
+                                    <input type="date" placeholder="Event Date" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2 focus:ring-terracotta focus:border-terracotta text-charcoal">
+                                    <input type="number" placeholder="Guest Count" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2 focus:ring-terracotta focus:border-terracotta text-charcoal">
+                                    <textarea placeholder="Special Notes &amp; Requests" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs p-2 focus:ring-terracotta focus:border-terracotta text-charcoal resize-none" rows="3"></textarea>
+                                </div>
+
+                                <button onclick="submitInquiry()" class="w-full bg-forest hover:bg-forest-dark text-white font-bold py-4 rounded-full text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.98]">
+                                    Submit Inquiry
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 7: GIFT CARDS SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-gift-cards" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta">Digital Gift Cards</span>
+                            <div class="w-8"></div>
+                        </header>
+
+                        <!-- Scrollable content -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Digital Gift Card Visual -->
+                            <div class="aspect-[1.6/1] w-full rounded-2xl overflow-hidden relative shadow-lg border border-gold/30">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxsvoD29VH75Dm5YQA_NnKT88tmNOhSFAU3pkYe-SQpHuucGBQSnVMpJFeYOkaDmBTOlSrFhJNJ51Gd5_3kyCWnSosTB-yOOfmqKHwWTS898ujbhrAZFBqGXyizmroY9OFHDpzA5Y2y2WCdOdcpoWUry5SghhKV0Sk-Ll1Nz35H3PuEezVw9Lx8J8yf_rwMNr5VN8vwcsTt3i5oeB38BRNiQ6kPZbpxkd-HtgahrWcJrEMrrL4S9NB" 
+                                     alt="Earthy clay texture backdrop" class="w-full h-full object-cover brightness-50">
+                                <div class="absolute inset-0 bg-terracotta/20 mix-blend-multiply"></div>
+                                
+                                <div class="absolute inset-0 p-5 flex flex-col justify-between z-10 text-white">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-serif text-xl tracking-wide font-bold">Girl &amp; the Goose</span>
+                                        <span class="material-symbols-outlined text-gold text-2xl font-light">eco</span>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-2xl font-bold font-serif block text-gold" id="gc-card-value">200 AED</span>
+                                        <span class="text-[9px] uppercase tracking-widest text-white/70 block">Digital Experience Voucher</span>
+                                    </div>
+                                </div>
+                                <div class="absolute inset-3 border border-gold/20 rounded-xl pointer-events-none"></div>
+                            </div>
+
+                            <!-- Amount selection -->
+                            <div class="space-y-3">
+                                <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Select Value</label>
+                                <div class="grid grid-cols-5 gap-1.5">
+                                    <button onclick="selectGCAmount(100)" class="gc-amt-btn py-2 text-xs font-bold rounded-lg border border-terracotta/25 text-charcoal hover:bg-terracotta/5">100</button>
+                                    <button onclick="selectGCAmount(200)" class="gc-amt-btn py-2 text-xs font-bold rounded-lg border-2 border-terracotta bg-terracotta/5 text-terracotta">200</button>
+                                    <button onclick="selectGCAmount(300)" class="gc-amt-btn py-2 text-xs font-bold rounded-lg border border-terracotta/25 text-charcoal hover:bg-terracotta/5">300</button>
+                                    <button onclick="selectGCAmount(500)" class="gc-amt-btn py-2 text-xs font-bold rounded-lg border border-terracotta/25 text-charcoal hover:bg-terracotta/5">500</button>
+                                    <button onclick="selectGCAmount('custom')" class="gc-amt-btn py-2 text-xs font-bold rounded-lg border border-terracotta/25 text-charcoal hover:bg-terracotta/5">Custom</button>
+                                </div>
+                                
+                                <!-- Custom value input (hidden by default) -->
+                                <div id="gc-custom-input-wrap" class="hidden">
+                                    <div class="relative">
+                                        <input type="number" id="gc-custom-input" oninput="customGCAmount(this.value)" placeholder="Enter custom amount in AED" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2 px-3 pr-10 focus:ring-terracotta focus:border-terracotta text-charcoal">
+                                        <span class="absolute right-3 top-2.5 text-[9px] font-bold text-charcoal/40 uppercase">AED</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Message and Delivery -->
+                            <div class="space-y-4 pt-2 border-t border-terracotta/10">
+                                <div>
+                                    <label class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block mb-1">Personalized Message</label>
+                                    <textarea id="gc-message" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs p-2 focus:ring-terracotta focus:border-terracotta text-charcoal resize-none" rows="2" placeholder="Write a thoughtful message..."></textarea>
+                                </div>
+
+                                <!-- Send Via -->
+                                <div class="space-y-2">
+                                    <span class="text-[10px] text-charcoal/50 font-semibold block">Send Via</span>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button id="btn-delivery-email" onclick="setGCDelivery('email')" class="py-2.5 border border-terracotta bg-terracotta/5 text-terracotta font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all">
+                                            <span class="material-symbols-outlined text-[16px]">mail</span> Email
+                                        </button>
+                                        <button id="btn-delivery-whatsapp" onclick="setGCDelivery('whatsapp')" class="py-2.5 border border-terracotta/10 text-charcoal/70 font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all">
+                                            <span class="material-symbols-outlined text-[16px]">chat</span> WhatsApp
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="text" id="gc-delivery-target" placeholder="Recipient's Email Address" class="w-full bg-ivory-light border border-terracotta/10 rounded-lg text-xs py-2.5 focus:ring-terracotta focus:border-terracotta text-charcoal">
+                            </div>
+
+                            <!-- CTA in Terracotta -->
+                            <div class="pt-2">
+                                <button onclick="buyGiftCard()" class="w-full bg-terracotta hover:bg-terracotta-dark text-white font-bold py-4 rounded-full text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.98]">
+                                    Buy Now
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 8: LOYALTY REWARDS SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-loyalty" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta">Loyalty Rewards</span>
+                            <div class="w-8"></div>
+                        </header>
+
+                        <!-- Scrollable content -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Guest Name Header & Points card -->
+                            <div class="bg-ivory-light border border-terracotta/10 rounded-xl p-5 shadow-sm space-y-4">
+                                <div class="flex justify-between items-start">
+                                    <div class="space-y-1">
+                                        <span class="text-[9px] uppercase tracking-widest text-charcoal/50 font-bold block">Bienvenido back</span>
+                                        <h4 class="font-serif text-base font-bold text-charcoal">Amigo Mateo</h4>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-secondary">
+                                        <span class="material-symbols-outlined text-base">workspace_premium</span>
+                                        <span class="text-[10px] uppercase font-bold">Compañero Tier</span>
+                                    </div>
+                                </div>
+
+                                <!-- Progress bar in terracotta -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-semibold text-charcoal/80">
+                                        <span id="loyalty-points">1,250 Points</span>
+                                        <span>750 pts to Familia</span>
+                                    </div>
+                                    <div class="h-2 bg-charcoal/10 rounded-full overflow-hidden">
+                                        <div class="h-full bg-terracotta rounded-full w-[62.5%]" id="loyalty-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Three Reward Tiers -->
+                            <div class="space-y-3">
+                                <span class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Loyalty Tiers</span>
+                                
+                                <div class="flex gap-2 overflow-x-auto hide-scrollbar snap-x py-1">
+                                    <!-- Tier 1 -->
+                                    <div class="snap-start shrink-0 w-44 bg-ivory-light border border-terracotta/10 rounded-xl p-4 space-y-2">
+                                        <div class="flex items-center gap-1.5 text-terracotta">
+                                            <span class="material-symbols-outlined text-lg">workspace_premium</span>
+                                            <span class="font-serif text-xs font-bold">Amigo</span>
+                                        </div>
+                                        <ul class="text-[9px] text-charcoal/60 space-y-1 font-light list-disc pl-3">
+                                            <li>Table booking 24h prior</li>
+                                            <li>Complimentary coffee</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Tier 2 (Current) -->
+                                    <div class="snap-start shrink-0 w-44 bg-terracotta/5 border-2 border-terracotta rounded-xl p-4 space-y-2">
+                                        <div class="flex items-center gap-1.5 text-terracotta">
+                                            <span class="material-symbols-outlined text-lg">workspace_premium</span>
+                                            <span class="font-serif text-xs font-bold">Compañero</span>
+                                        </div>
+                                        <ul class="text-[9px] text-terracotta/80 space-y-1 font-medium list-disc pl-3">
+                                            <li>48h advance priority bookings</li>
+                                            <li>Seasonal Chef plates</li>
+                                            <li>Artisanal cocktail perks</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Tier 3 -->
+                                    <div class="snap-start shrink-0 w-44 bg-ivory-light border border-terracotta/10 rounded-xl p-4 space-y-2 opacity-50">
+                                        <div class="flex items-center gap-1.5 text-charcoal/40">
+                                            <span class="material-symbols-outlined text-lg">workspace_premium</span>
+                                            <span class="font-serif text-xs font-bold">Familia</span>
+                                        </div>
+                                        <ul class="text-[9px] text-charcoal/50 space-y-1 font-light list-disc pl-3">
+                                            <li>7-day priority booking access</li>
+                                            <li>Private Chef's Table invitations</li>
+                                            <li>Vintage wine storage</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Redeemable Rewards -->
+                            <div class="space-y-3 pt-2 border-t border-terracotta/10">
+                                <span class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Redeem Points</span>
+                                
+                                <div class="space-y-3">
+                                    
+                                    <!-- Reward Item 1 -->
+                                    <div class="bg-ivory-light border border-terracotta/5 rounded-xl p-3 flex justify-between items-center shadow-sm">
+                                        <div class="space-y-0.5">
+                                            <h5 class="font-serif text-xs font-bold text-charcoal">Free Brunch Upgrade</h5>
+                                            <span class="text-[10px] text-terracotta font-medium">800 Points</span>
+                                        </div>
+                                        <button onclick="redeemReward('Free Brunch Upgrade', 800)" class="px-4 py-1.5 bg-terracotta text-white rounded-lg text-[10px] uppercase font-bold hover:bg-terracotta-dark transition-colors">Redeem</button>
+                                    </div>
+
+                                    <!-- Reward Item 2 -->
+                                    <div class="bg-ivory-light border border-terracotta/5 rounded-xl p-3 flex justify-between items-center shadow-sm">
+                                        <div class="space-y-0.5">
+                                            <h5 class="font-serif text-xs font-bold text-charcoal">Complimentary Cocktail</h5>
+                                            <span class="text-[10px] text-terracotta font-medium">450 Points</span>
+                                        </div>
+                                        <button onclick="redeemReward('Complimentary Cocktail', 450)" class="px-4 py-1.5 bg-terracotta text-white rounded-lg text-[10px] uppercase font-bold hover:bg-terracotta-dark transition-colors">Redeem</button>
+                                    </div>
+
+                                    <!-- Reward Item 3 -->
+                                    <div class="bg-ivory-light border border-terracotta/5 rounded-xl p-3 flex justify-between items-center shadow-sm">
+                                        <div class="space-y-0.5">
+                                            <h5 class="font-serif text-xs font-bold text-charcoal">Chef's Table Access</h5>
+                                            <span class="text-[10px] text-terracotta font-medium">1,200 Points</span>
+                                        </div>
+                                        <button onclick="redeemReward('Chef\'s Table Access', 1200)" class="px-4 py-1.5 bg-terracotta text-white rounded-lg text-[10px] uppercase font-bold hover:bg-terracotta-dark transition-colors">Redeem</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Visit History -->
+                            <div class="space-y-3 pt-2 border-t border-terracotta/10">
+                                <span class="text-[10px] uppercase tracking-widest font-semibold text-charcoal/60 block">Recent Visits</span>
+                                <div class="space-y-2">
+                                    <div class="bg-ivory-light rounded-xl p-3 border-l-4 border-terracotta flex justify-between items-center text-xs">
+                                        <div>
+                                            <span class="text-[9px] text-charcoal/40 block">OCT 14, 2025</span>
+                                            <span class="font-bold font-serif text-charcoal">Goose &amp; Roots Tasting Dinner</span>
+                                        </div>
+                                        <span class="font-bold text-secondary text-[11px]">+340 pts</span>
+                                    </div>
+                                    <div class="bg-ivory-light rounded-xl p-3 border-l-4 border-secondary flex justify-between items-center text-xs">
+                                        <div>
+                                            <span class="text-[9px] text-charcoal/40 block">SEP 28, 2025</span>
+                                            <span class="font-bold font-serif text-charcoal">Courtyard Sunday Brunch</span>
+                                        </div>
+                                        <span class="font-bold text-secondary text-[11px]">+185 pts</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- SCREEN 9: EVENTS SCREEN -->
+                    <!-- ========================================== -->
+                    <div id="screen-events" class="app-screen right">
+                        <!-- Top Header -->
+                        <header class="h-16 border-b border-terracotta/10 flex items-center justify-between px-6 bg-ivory/95 backdrop-blur-md z-40 shrink-0">
+                            <button onclick="gotoScreen('home')" class="text-charcoal"><span class="material-symbols-outlined text-2xl">arrow_back</span></button>
+                            <span class="font-serif text-lg font-bold text-terracotta">Upcoming Gatherings</span>
+                            <div class="w-8"></div>
+                        </header>
+
+                        <!-- Categories Filter Tabs -->
+                        <div class="h-12 border-b border-terracotta/5 bg-ivory/95 flex items-center px-4 overflow-x-auto hide-scrollbar shrink-0 gap-3">
+                            <button onclick="filterEvents('all')" class="event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta bg-terracotta text-white font-bold whitespace-nowrap">All</button>
+                            <button onclick="filterEvents('brunch')" class="event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta/10 text-charcoal/70 whitespace-nowrap">Brunch</button>
+                            <button onclick="filterEvents('tasting')" class="event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta/10 text-charcoal/70 whitespace-nowrap">Tasting Menu</button>
+                            <button onclick="filterEvents('special')" class="event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta/10 text-charcoal/70 whitespace-nowrap">Special Events</button>
+                            <button onclick="filterEvents('private')" class="event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta/10 text-charcoal/70 whitespace-nowrap">Private</button>
+                        </div>
+
+                        <!-- Scrollable list of events -->
+                        <div class="screen-scroll-container custom-scrollbar p-6 space-y-6">
+                            
+                            <!-- Event 1 -->
+                            <div class="event-card bg-ivory-light border border-terracotta/10 rounded-xl overflow-hidden shadow-sm" data-type="brunch">
+                                <div class="h-32 overflow-hidden relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ixH5oNecw2rQQc48-iIgiR5pwSwF7XXjalivFl_Ik5nn7KnqoTbCfcZiRnFGz0CvUG1jw5XHJSzokgKO3m4NKNTZZ_E96DmdTYx3BOTny2rR85lmgyOGyuasu_GR9KXb0NePM5g5WAR20FXjtmNwIkUvb68mvh3YQ71WoVQL9X_rVFqF-OeYXo63OjxTdVY_ZQQA4P1O1040UTB7LmrnA0ETcRr_Q00jblb5yyulBjZ59HM0ODAa" 
+                                         alt="The Solstice Brunch" class="w-full h-full object-cover">
+                                    <span class="absolute top-3 left-3 bg-terracotta text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">This Sunday</span>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div class="space-y-1">
+                                        <span class="text-[9px] uppercase tracking-wider text-charcoal/40 font-bold block">11:00 AM — 3:00 PM</span>
+                                        <h4 class="font-serif text-sm font-bold text-terracotta">The Solstice Brunch</h4>
+                                        <p class="text-[11px] text-charcoal/60 leading-relaxed font-light">Featuring blue corn chilaquiles and small-batch mezcal mimosas.</p>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-1 border-t border-terracotta/5">
+                                        <span class="text-xs font-semibold text-charcoal">357 AED / Guest</span>
+                                        <button onclick="gotoScreen('brunch')" class="px-4 py-2 bg-terracotta text-white rounded-lg text-[10px] uppercase font-bold hover:bg-terracotta-dark">Book</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event 2 -->
+                            <div class="event-card bg-ivory-light border border-terracotta/10 rounded-xl overflow-hidden shadow-sm" data-type="tasting">
+                                <div class="h-32 overflow-hidden relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA94LrrmrheOaouo2JomLQ5yKUKmy38wu0bhtVzhbVe0tHhVYMALrm5gcheuXtCnhkmwUSd_KDT4S_xO21OFBMMHIB1P4tsVEt09-V-TSVfc_QNwOqd70LF_MOQAfZAjCZzfM9D0PEkKedxPNyg4sB164qq61RfZUa084xrq-V9SzivoQn07TrDt3rMPINlMQf_x3SUcQsv38n5Z_pGkxXjY1Qf5oU_M-JYDrx8M5GBZ75-E7_z-Yzt" 
+                                         alt="Heritage Wine Tasting" class="w-full h-full object-cover">
+                                    <span class="absolute top-3 left-3 bg-forest text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">DEC 14</span>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div class="space-y-1">
+                                        <span class="text-[9px] uppercase tracking-wider text-charcoal/40 font-bold block">7:30 PM Onwards</span>
+                                        <h4 class="font-serif text-sm font-bold text-terracotta">Heritage Wine Tasting</h4>
+                                        <p class="text-[11px] text-charcoal/60 leading-relaxed font-light">Volcanic terroir exploration through rare Central American vintages and small plates.</p>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-1 border-t border-terracotta/5">
+                                        <span class="text-xs font-semibold text-charcoal">450 AED / Guest</span>
+                                        <button onclick="gotoScreen('reservations')" class="px-4 py-2 bg-terracotta text-white rounded-lg text-[10px] uppercase font-bold hover:bg-terracotta-dark">Book</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event 3 -->
+                            <div class="event-card bg-ivory-light border border-terracotta/10 rounded-xl overflow-hidden shadow-sm" data-type="special">
+                                <div class="h-32 overflow-hidden relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf9sTJrZULNpCi8MGgYs-pEpXJO7YGgHxBVMPqZT0Vi3MfsfvcU0BLd6bO1sSNYhZwfiymvQXG1c9KM0sjr4fgHKE_1we3B9hPZ_0BOSN-Zk0KmMajl5VLB-CX47qjhQF3ZLbPwAf4oArgx-ybkeTUHo_yQcczkaF9dvpmtjFAswggiDA7f3kTNzmcU9jCCBzKGWKH3oetw7bgxmb09vW4T8GcDqyAfeuIEERuGR2NpHhV7fWnAmTF" 
+                                         alt="The Cupping Room" class="w-full h-full object-cover">
+                                    <span class="absolute top-3 left-3 bg-forest text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">DEC 20</span>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div class="space-y-1">
+                                        <span class="text-[9px] uppercase tracking-wider text-charcoal/40 font-bold block">10:00 AM — 12:00 PM</span>
+                                        <h4 class="font-serif text-sm font-bold text-terracotta">The Cupping Room</h4>
+                                        <p class="text-[11px] text-charcoal/60 leading-relaxed font-light">Interactive coffee workshop focusing on altitude and Nicaraguan roasting profiles.</p>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-1 border-t border-terracotta/5">
+                                        <span class="text-xs font-semibold text-charcoal">120 AED / Guest</span>
+                                        <button onclick="gotoScreen('reservations')" class="px-4 py-2 bg-terracotta text-white rounded-lg text-[10px] uppercase font-bold hover:bg-terracotta-dark">Book</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- PERSISTENT BOTTOM NAVIGATION BAR -->
+                    <!-- ========================================== -->
+                    <nav id="app-bottom-nav" class="absolute bottom-0 left-0 right-0 h-20 bg-ivory/95 backdrop-blur-md border-t border-terracotta/10 shadow-[0_-4px_24px_rgba(45,36,30,0.06)] flex justify-around items-center px-4 pb-2 z-50 transition-transform duration-300">
+                        <button onclick="gotoScreen('home')" class="nav-item flex flex-col items-center justify-center text-charcoal/50 hover:text-terracotta text-center active:scale-90 duration-200" id="nav-home">
+                            <span class="material-symbols-outlined text-[22px]">home</span>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1">Home</span>
+                        </button>
+                        <button onclick="gotoScreen('menu')" class="nav-item flex flex-col items-center justify-center text-charcoal/50 hover:text-terracotta text-center active:scale-90 duration-200" id="nav-menu">
+                            <span class="material-symbols-outlined text-[22px]">restaurant_menu</span>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1">Menu</span>
+                        </button>
+                        <button onclick="gotoScreen('reservations')" class="nav-item flex flex-col items-center justify-center text-charcoal/50 hover:text-terracotta text-center active:scale-90 duration-200" id="nav-reservations">
+                            <span class="material-symbols-outlined text-[22px]">event_available</span>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1">Reserve</span>
+                        </button>
+                        <button onclick="gotoScreen('events')" class="nav-item flex flex-col items-center justify-center text-charcoal/50 hover:text-terracotta text-center active:scale-90 duration-200" id="nav-events">
+                            <span class="material-symbols-outlined text-[22px]">calendar_today</span>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1">Events</span>
+                        </button>
+                        <button onclick="gotoScreen('loyalty')" class="nav-item flex flex-col items-center justify-center text-charcoal/50 hover:text-terracotta text-center active:scale-90 duration-200" id="nav-loyalty">
+                            <span class="material-symbols-outlined text-[22px]">verified</span>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1">Profile</span>
+                        </button>
+                    </nav>
+
+                    <!-- ========================================== -->
+                    <!-- DYNAMIC TOAST / NOTIFICATION PREVIEW -->
+                    <!-- ========================================== -->
+                    <div id="push-notification" class="absolute top-[88px] left-4 right-4 bg-charcoal/95 border border-gold/30 text-white rounded-2xl p-4 shadow-xl z-[60] transform -translate-y-[200px] transition-transform duration-500 cursor-pointer flex gap-3 items-center">
+                        <div class="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center text-gold flex-shrink-0">
+                            <span class="material-symbols-outlined">notifications_active</span>
+                        </div>
+                        <div class="flex-grow space-y-1">
+                            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-gold font-bold">
+                                <span>Girl &amp; the Goose</span>
+                                <span class="text-white/40">Just now</span>
+                            </div>
+                            <p class="text-[11px] text-white/90 leading-snug">This Sunday at Girl and the Goose. Chef Gabriela's new seasonal menu is live. Reserve your table now.</p>
+                        </div>
+                        <button onclick="closePushNotification(event)" class="text-white/40 hover:text-white shrink-0"><span class="material-symbols-outlined text-lg">close</span></button>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- DYNAMIC SUCCESS MODAL -->
+                    <!-- ========================================== -->
+                    <div id="success-modal" class="absolute inset-0 bg-charcoal/60 backdrop-blur-sm z-[70] hidden items-center justify-center p-6 text-center">
+                        <div class="bg-ivory border border-terracotta/20 rounded-2xl p-6 shadow-2xl space-y-6 max-w-[280px]">
+                            <div class="w-16 h-16 bg-forest/10 text-forest rounded-full flex items-center justify-center mx-auto border border-forest/20 shadow-[0_0_24px_rgba(45,80,22,0.15)]">
+                                <span class="material-symbols-outlined text-4xl">check_circle</span>
+                            </div>
+                            <div class="space-y-2">
+                                <h4 class="font-serif text-lg font-bold text-terracotta" id="success-title">Confirmed!</h4>
+                                <p class="text-xs text-charcoal/70 leading-relaxed" id="success-msg">Your dining inquiry has been submitted. We will contact you soon.</p>
+                            </div>
+                            <button onclick="closeSuccessModal()" class="w-full bg-terracotta hover:bg-terracotta-dark text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all active:scale-[0.98]">
+                                Back to Home
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripting -->
+    <script>
+        // Screen Mapping
+        const screens = {
+            splash: document.getElementById('screen-splash'),
+            home: document.getElementById('screen-home'),
+            menu: document.getElementById('screen-menu'),
+            reservations: document.getElementById('screen-reservations'),
+            brunch: document.getElementById('screen-brunch'),
+            'private-dining': document.getElementById('screen-private-dining'),
+            'gift-cards': document.getElementById('screen-gift-cards'),
+            loyalty: document.getElementById('screen-loyalty'),
+            events: document.getElementById('screen-events'),
+        };
+
+        // Navigation elements mapping
+        const navItems = {
+            home: document.getElementById('nav-home'),
+            menu: document.getElementById('nav-menu'),
+            reservations: document.getElementById('nav-reservations'),
+            events: document.getElementById('nav-events'),
+            loyalty: document.getElementById('nav-loyalty'),
+        };
+
+        let currentScreen = 'splash';
+
+        // Auto transition splash to home after 2 seconds
+        document.addEventListener('DOMContentLoaded', () => {
+            const progress = document.getElementById('splash-progress');
+            setTimeout(() => {
+                progress.style.transform = 'scaleX(1)';
+            }, 100);
+
+            setTimeout(() => {
+                gotoScreen('home');
+                // Trigger push notification after entering
+                setTimeout(() => {
+                    triggerPushNotification();
+                }, 3000);
+            }, 2500);
+        });
+
+        // Navigation function with sliding effect
+        function gotoScreen(targetId) {
+            if (targetId === currentScreen) return;
+
+            const currentEl = screens[currentScreen];
+            const targetEl = screens[targetId];
+
+            if (!targetEl) return;
+
+            // Determine sliding direction
+            const listOrder = ['splash', 'home', 'menu', 'reservations', 'events', 'loyalty', 'brunch', 'private-dining', 'gift-cards'];
+            const currentIndex = listOrder.indexOf(currentScreen);
+            const targetIndex = listOrder.indexOf(targetId);
+            const goRight = targetIndex > currentIndex;
+
+            // Prepare target screen position
+            targetEl.classList.remove('active', 'left', 'right');
+            targetEl.classList.add(goRight ? 'right' : 'left');
+
+            // Force reflow
+            targetEl.offsetHeight;
+
+            // Animate transition
+            currentEl.classList.remove('active');
+            currentEl.classList.add(goRight ? 'left' : 'right');
+
+            targetEl.classList.remove('left', 'right');
+            targetEl.classList.add('active');
+
+            currentScreen = targetId;
+
+            // Update persistent bottom navigation visibility and active state
+            const bottomNav = document.getElementById('app-bottom-nav');
+            if (targetId === 'splash') {
+                bottomNav.style.transform = 'translateY(100%)';
+            } else {
+                bottomNav.style.transform = 'translateY(0)';
+            }
+
+            // Highlight nav bar active states
+            Object.values(navItems).forEach(item => item.classList.remove('active'));
+            if (navItems[targetId]) {
+                navItems[targetId].classList.add('active');
+            } else if (targetId === 'brunch' || targetId === 'private-dining' || targetId === 'gift-cards') {
+                // If sub-screen, we can highlight the parent
+                if (targetId === 'brunch') {
+                    navItems.reservations.classList.add('active');
+                }
+            }
+        }
+
+        // Sidebar Navigation
+        window.gotoScreen = gotoScreen;
+
+        // STATE 1: Cart Orders Badge
+        let orderCount = 0;
+        function addToOrder(dishName) {
+            orderCount++;
+            const badge = document.getElementById('cart-badge');
+            const menuBadge = document.getElementById('menu-cart-badge');
+            
+            badge.innerText = orderCount;
+            badge.classList.remove('hidden');
+            
+            menuBadge.innerText = orderCount;
+            menuBadge.classList.remove('hidden');
+
+            // Visual feedback on dish button
+            const event = window.event;
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `Added to order <span class="material-symbols-outlined text-[12px]">done</span>`;
+            btn.classList.add('bg-forest');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('bg-forest');
+            }, 1200);
+        }
+
+        // STATE 2: Favourites Heart Toggling
+        const favs = new Set();
+        function toggleFav(btn, dishName) {
+            const heartIcon = btn.querySelector('.material-symbols-outlined');
+            if (favs.has(dishName)) {
+                favs.delete(dishName);
+                heartIcon.innerText = 'favorite_border';
+                heartIcon.style.fontVariationSettings = "'FILL' 0";
+            } else {
+                favs.add(dishName);
+                heartIcon.innerText = 'favorite';
+                heartIcon.style.fontVariationSettings = "'FILL' 1";
+            }
+            window.event.stopPropagation();
+        }
+
+        // STATE 3: Reservations Screen Adjustments
+        let resGuests = 2;
+        let resArea = 'Indoor';
+        let resDate = 'July 6';
+        let resTime = '19:00';
+
+        function adjustResParty(delta) {
+            resGuests = Math.max(1, Math.min(12, resGuests + delta));
+            document.getElementById('res-party-display').innerText = `${resGuests} ${resGuests === 1 ? 'Guest' : 'Guests'}`;
+        }
+
+        function setResArea(area) {
+            resArea = area;
+            const indoorBtn = document.getElementById('btn-area-indoor');
+            const terraceBtn = document.getElementById('btn-area-terrace');
+            
+            if (area === 'Indoor') {
+                indoorBtn.className = 'py-2 text-xs rounded-lg font-semibold bg-ivory-light text-terracotta shadow-sm transition-all duration-300';
+                terraceBtn.className = 'py-2 text-xs rounded-lg font-semibold text-charcoal/60 hover:text-charcoal transition-all duration-300';
+            } else {
+                terraceBtn.className = 'py-2 text-xs rounded-lg font-semibold bg-ivory-light text-terracotta shadow-sm transition-all duration-300';
+                indoorBtn.className = 'py-2 text-xs rounded-lg font-semibold text-charcoal/60 hover:text-charcoal transition-all duration-300';
+            }
+        }
+
+        function selectResDate(day) {
+            document.querySelectorAll('.res-date-btn').forEach(btn => {
+                btn.className = 'res-date-btn p-1 font-bold rounded hover:bg-terracotta/10 text-charcoal';
+            });
+            const event = window.event;
+            event.currentTarget.className = 'res-date-btn p-1 font-bold rounded bg-terracotta text-white shadow-sm';
+            resDate = `July ${day}`;
+        }
+
+        function selectResTime(btn) {
+            document.querySelectorAll('.res-time-btn').forEach(b => {
+                b.className = 'res-time-btn py-2 px-3 border border-terracotta/15 hover:border-terracotta text-xs text-charcoal/80 rounded-lg transition-all';
+            });
+            btn.className = 'res-time-btn py-2 px-3 border border-terracotta bg-terracotta/10 text-terracotta text-xs font-bold rounded-lg transition-all';
+            resTime = btn.innerText;
+        }
+
+        function confirmBooking() {
+            const occasion = document.getElementById('res-occasion').value;
+            const occasionText = occasion !== 'none' ? ` (${occasion})` : '';
+            
+            document.getElementById('success-title').innerText = "Table Reserved!";
+            document.getElementById('success-msg').innerText = `Table for ${resGuests} on ${resDate} at ${resTime}${occasionText} in the ${resArea} has been booked directly.`;
+            
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+        }
+
+        // STATE 4: Sunday Brunch Calculations
+        let brunchPackageRate = 249;
+        let brunchGuests = 2;
+        let brunchTimeSlot = '12pm';
+        let announcementsEnabled = false;
+
+        function selectBrunchPackage(type, price) {
+            brunchPackageRate = price;
+            const foodCard = document.getElementById('pkg-food');
+            const drinksCard = document.getElementById('pkg-drinks');
+            
+            if (type === 'food') {
+                foodCard.className = 'border-2 border-terracotta bg-terracotta/5 rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all duration-300';
+                drinksCard.className = 'border border-terracotta/20 bg-ivory-light rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all duration-300';
+            } else {
+                drinksCard.className = 'border-2 border-terracotta bg-terracotta/5 rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all duration-300';
+                foodCard.className = 'border border-terracotta/20 bg-ivory-light rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all duration-300';
+            }
+            updateBrunchTotal();
+        }
+
+        function selectBrunchTime(btn) {
+            document.querySelectorAll('.brunch-time-btn').forEach(b => {
+                b.className = 'brunch-time-btn py-2 text-xs text-charcoal/80 rounded-lg border border-terracotta/10 transition-all';
+            });
+            btn.className = 'brunch-time-btn py-2 text-xs font-bold rounded-lg border border-terracotta bg-terracotta/10 text-terracotta transition-all';
+            brunchTimeSlot = btn.innerText;
+        }
+
+        function adjustBrunchGuests(delta) {
+            brunchGuests = Math.max(1, Math.min(20, brunchGuests + delta));
+            document.getElementById('brunch-guests').innerText = brunchGuests;
+            updateBrunchTotal();
+        }
+
+        function updateBrunchTotal() {
+            const total = brunchPackageRate * brunchGuests;
+            document.getElementById('brunch-total-display').innerText = `${total} AED`;
+        }
+
+        function toggleAnnouncements(btn) {
+            announcementsEnabled = !announcementsEnabled;
+            if (announcementsEnabled) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        }
+
+        function bookBrunch() {
+            document.getElementById('success-title').innerText = "Brunch Booked!";
+            document.getElementById('success-msg').innerText = `Brunch for ${brunchGuests} guests at ${brunchTimeSlot} this Sunday. Total estimated cost: ${brunchPackageRate * brunchGuests} AED.`;
+            
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+        }
+
+        // STATE 5: Private Dining Event Chips
+        let eventTypeSelected = 'Corporate Dinner';
+        function selectEventType(btn) {
+            document.querySelectorAll('.event-type-chip').forEach(chip => {
+                chip.className = 'event-type-chip px-3 py-1 text-[10px] rounded-full border border-terracotta/20 text-charcoal/70 hover:bg-terracotta/5';
+            });
+            btn.className = 'event-type-chip px-3 py-1 text-[10px] rounded-full border border-terracotta bg-terracotta text-white font-bold';
+            eventTypeSelected = btn.innerText;
+        }
+
+        function submitInquiry() {
+            document.getElementById('success-title').innerText = "Inquiry Sent!";
+            document.getElementById('success-msg').innerText = `Your request for a ${eventTypeSelected} has been submitted. Our events concierge will contact you within 24 hours.`;
+            
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+        }
+
+        // STATE 6: Gift Cards selector & custom amount
+        let gcAmount = 200;
+        let gcDelivery = 'email';
+        function selectGCAmount(amt) {
+            document.querySelectorAll('.gc-amt-btn').forEach(btn => {
+                btn.className = 'gc-amt-btn py-2 text-xs font-bold rounded-lg border border-terracotta/25 text-charcoal hover:bg-terracotta/5';
+            });
+            
+            const event = window.event;
+            event.currentTarget.className = 'gc-amt-btn py-2 text-xs font-bold rounded-lg border-2 border-terracotta bg-terracotta/5 text-terracotta';
+            
+            const customInputWrap = document.getElementById('gc-custom-input-wrap');
+            if (amt === 'custom') {
+                customInputWrap.classList.remove('hidden');
+                customGCAmount(document.getElementById('gc-custom-input').value || 100);
+            } else {
+                customInputWrap.classList.add('hidden');
+                gcAmount = amt;
+                document.getElementById('gc-card-value').innerText = `${amt} AED`;
+            }
+        }
+
+        function customGCAmount(val) {
+            gcAmount = parseInt(val) || 0;
+            document.getElementById('gc-card-value').innerText = `${gcAmount} AED`;
+        }
+
+        function setGCDelivery(method) {
+            gcDelivery = method;
+            const emailBtn = document.getElementById('btn-delivery-email');
+            const waBtn = document.getElementById('btn-delivery-whatsapp');
+            const targetInput = document.getElementById('gc-delivery-target');
+            
+            if (method === 'email') {
+                emailBtn.className = 'py-2.5 border border-terracotta bg-terracotta/5 text-terracotta font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all';
+                waBtn.className = 'py-2.5 border border-terracotta/10 text-charcoal/70 font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all';
+                targetInput.placeholder = "Recipient's Email Address";
+            } else {
+                waBtn.className = 'py-2.5 border border-terracotta bg-terracotta/5 text-terracotta font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all';
+                emailBtn.className = 'py-2.5 border border-terracotta/10 text-charcoal/70 font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all';
+                targetInput.placeholder = "Recipient's WhatsApp Phone Number";
+            }
+        }
+
+        function buyGiftCard() {
+            document.getElementById('success-title').innerText = "Voucher Purchased!";
+            document.getElementById('success-msg').innerText = `A digital gift card for ${gcAmount} AED has been purchased and sent via ${gcDelivery}.`;
+            
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+        }
+
+        // STATE 7: Loyalty Rewards Points Reduction
+        let loyaltyPointsBalance = 1250;
+        function redeemReward(rewardName, cost) {
+            if (loyaltyPointsBalance < cost) {
+                alert(`Insufficient points! You need ${cost} points but currently have ${loyaltyPointsBalance}.`);
+                return;
+            }
+            loyaltyPointsBalance -= cost;
+            document.getElementById('loyalty-points').innerText = `${loyaltyPointsBalance.toLocaleString()} Points`;
+            
+            // Update bar width
+            const newPct = (loyaltyPointsBalance / 2000) * 100;
+            document.getElementById('loyalty-bar').style.width = `${newPct}%`;
+
+            document.getElementById('success-title').innerText = "Reward Redeemed!";
+            document.getElementById('success-msg').innerText = `Successfully claimed: ${rewardName}. ${cost} points have been deducted.`;
+            
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+        }
+
+        // STATE 8: Filters
+        function filterMenu(cat) {
+            document.querySelectorAll('.menu-tab-btn').forEach(btn => {
+                btn.className = 'menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta/10 text-charcoal/70 hover:bg-terracotta/5 whitespace-nowrap';
+            });
+            const event = window.event;
+            event.currentTarget.className = 'menu-tab-btn px-4 py-1 text-xs rounded-full border border-terracotta bg-terracotta text-white font-medium whitespace-nowrap';
+
+            document.querySelectorAll('.menu-cat-section').forEach(sec => {
+                sec.classList.remove('hidden');
+            });
+            document.querySelectorAll('.menu-item-card').forEach(card => {
+                card.classList.remove('hidden');
+            });
+
+            if (cat !== 'all') {
+                document.querySelectorAll('.menu-cat-section').forEach(sec => {
+                    if (sec.id !== `cat-${cat}`) {
+                        sec.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        function filterEvents(type) {
+            document.querySelectorAll('.event-filter-btn').forEach(btn => {
+                btn.className = 'event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta/10 text-charcoal/70 whitespace-nowrap';
+            });
+            const event = window.event;
+            event.currentTarget.className = 'event-filter-btn px-4 py-1 text-[10px] uppercase tracking-wider rounded-full border border-terracotta bg-terracotta text-white font-bold whitespace-nowrap';
+
+            document.querySelectorAll('.event-card').forEach(card => {
+                if (type === 'all' || card.getAttribute('data-type') === type) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // STATE 9: Push notification animation
+        function triggerPushNotification() {
+            const toast = document.getElementById('push-notification');
+            toast.style.transform = 'translateY(0)';
+        }
+
+        function closePushNotification(e) {
+            const toast = document.getElementById('push-notification');
+            toast.style.transform = 'translateY(-200px)';
+            e.stopPropagation();
+        }
+
+        document.getElementById('push-notification').addEventListener('click', () => {
+            closePushNotification(window.event);
+            gotoScreen('events');
+        });
+
+        // MODAL control
+        function closeSuccessModal() {
+            document.getElementById('success-modal').style.display = 'none';
+            gotoScreen('home');
+        }
+    </script>
+</body>
+</html>

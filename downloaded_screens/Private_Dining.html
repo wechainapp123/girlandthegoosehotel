@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Private Dining | Girl and the Goose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        .noise-bg {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #823b18;
+            border-radius: 10px;
+        }
+
+        /* Subtle underline animation for nav */
+        .nav-link-underline {
+            position: relative;
+        }
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        .nav-link-underline:hover::after {
+            width: 100%;
+        }
+    </style>
+<!-- Tailwind Configuration Injection -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#cca730",
+                      "inverse-surface": "#33302b",
+                      "surface-variant": "#e8e1da",
+                      "on-surface-variant": "#54433c",
+                      "surface": "#fff8f1",
+                      "surface-container-high": "#eee7df",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#ffb596",
+                      "background": "#fff8f1",
+                      "surface-bright": "#fff8f1",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#360f00",
+                      "surface-container-highest": "#e8e1da",
+                      "primary": "#823b18",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "on-background": "#1e1b17",
+                      "outline": "#87736b",
+                      "on-primary-container": "#ffe1d6",
+                      "primary-fixed": "#ffdbcd",
+                      "surface-tint": "#944925",
+                      "inverse-primary": "#ffb596",
+                      "tertiary-fixed": "#ffe088",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#76320f",
+                      "surface-dim": "#dfd9d1",
+                      "secondary": "#006e0c",
+                      "on-surface": "#1e1b17",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#dac1b8",
+                      "surface-container-low": "#f9f3eb",
+                      "surface-container": "#f4ede5",
+                      "on-tertiary-container": "#4e3d00",
+                      "secondary-fixed-dim": "#77dd6a",
+                      "on-secondary-fixed-variant": "#005307",
+                      "secondary-fixed": "#92fa83",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#002201",
+                      "on-tertiary-fixed": "#241a00",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "inverse-on-surface": "#f7f0e8",
+                      "error": "#ba1a1a",
+                      "tertiary": "#735c00",
+                      "on-secondary-container": "#00730d",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#a0522d",
+                      "secondary-container": "#8ff780"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding-desktop": "40px",
+                      "section-gap": "80px",
+                      "container-padding-mobile": "20px",
+                      "gutter": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["DM Sans"],
+                      "display-lg-mobile": ["EB Garamond"],
+                      "display-lg": ["EB Garamond"],
+                      "body-lg": ["DM Sans"],
+                      "label-caps": ["DM Sans"],
+                      "headline-sm": ["EB Garamond"],
+                      "headline-md": ["EB Garamond"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                      "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden min-h-screen">
+<div class="fixed inset-0 noise-bg z-0"></div>
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-[60] bg-surface/95 backdrop-blur-md border-b-[0.5px] border-outline-variant flex items-center justify-between px-container-padding-mobile md:px-container-padding-desktop py-4 h-20">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-80 transition-opacity active:scale-95" data-icon="arrow_back">arrow_back</span>
+</div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-primary tracking-tight text-center">Girl and the Goose</h1>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex items-center gap-6">
+<a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors" href="#">Menu</a>
+<a class="font-label-caps text-label-caps uppercase text-primary font-medium after:content-[''] after:block after:w-full after:h-[1px] after:bg-primary" href="#">Reserve</a>
+</nav>
+</div>
+<div class="md:hidden w-6"></div> <!-- Spacer for mobile center alignment -->
+</header>
+<main class="relative z-10 max-w-[1200px] mx-auto px-container-padding-mobile md:px-container-padding-desktop py-12 md:py-section-gap">
+<!-- Header Section -->
+<section class="text-center mb-16 max-w-2xl mx-auto">
+<span class="font-label-caps text-label-caps text-tertiary uppercase tracking-widest block mb-4">Intimate Gatherings</span>
+<h2 class="font-display-lg text-primary mb-6">Host an Unforgettable Evening</h2>
+<p class="text-on-surface-variant font-body-lg">Whether a candlelit wedding or a sophisticated corporate retreat, our private dining rooms offer an artisanal atmosphere crafted with Central American soul.</p>
+<div class="w-16 h-[1px] bg-outline-variant mx-auto mt-8"></div>
+</section>
+<!-- Room Options (Bento Style Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-section-gap">
+<!-- La Sala Card -->
+<div class="group relative overflow-hidden bg-surface-container-low border border-outline-variant hover:border-primary transition-all duration-500 rounded-lg">
+<div class="aspect-[4/5] overflow-hidden">
+<div class="w-full h-full transform group-hover:scale-105 transition-transform duration-700 bg-cover bg-center" data-alt="An intimate indoor dining room with warm terracotta walls, hand-crafted wooden furniture, and a long communal table set with ceramic pottery and flickering beeswax candles. The lighting is low and moody, casting soft shadows, evoking a sense of ancient Central American luxury and artisanal craftsmanship. Deep shadows and warm highlights characterize the moody photography style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBF_qint_nMdmL1iMCPwAbz5B1GDHKvrBJVKjiA8kGJXwmZ-hs2K6wGPBv7WiG_SWlDLVHDnydRbeQ9sBr5l9VcUcsu__foutS1e4wKlkyDNkcVaZzx8VvZeB9x9rCpaxvy_qgRL927UtNJ4XzPF8S9H8-Uss2fj5tibeU8vquvKv2rHtYkOZoBugVK-jd6WmcALqEJxrf8eTZgngnfqj40DgemIwSjBY1yyqPqwnNXmeTGMk1mII_p')"></div>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-primary">La Sala</h3>
+<span class="font-label-caps text-label-caps bg-secondary/10 text-secondary px-3 py-1 rounded-full">Intimate</span>
+</div>
+<p class="text-on-surface-variant mb-6 font-body-md">Our signature indoor gallery space, surrounded by hand-curated Central American textiles and earthy ceramics. Perfect for formal dinners and quiet celebrations.</p>
+<div class="flex items-center gap-6 border-t border-outline-variant pt-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-xl" data-icon="groups">groups</span>
+<span class="font-label-caps text-label-caps text-on-surface">UP TO 24 GUESTS</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-xl" data-icon="ac_unit">ac_unit</span>
+<span class="font-label-caps text-label-caps text-on-surface">CLIMATE CONTROL</span>
+</div>
+</div>
+</div>
+</div>
+<!-- The Terrace Card -->
+<div class="group relative overflow-hidden bg-surface-container-low border border-outline-variant hover:border-primary transition-all duration-500 rounded-lg">
+<div class="aspect-[4/5] overflow-hidden">
+<div class="w-full h-full transform group-hover:scale-105 transition-transform duration-700 bg-cover bg-center" data-alt="A lush outdoor dining terrace under a dark night sky, illuminated by strings of warm Edison bulbs and large ceramic fire pits. Wrought iron tables are surrounded by tropical foliage and climbing jasmine. The atmosphere is breezy and elegant, with a refined, high-end Central American resort aesthetic. The mood is celebratory yet intimate, featuring high-contrast photography." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDbkZ5Y_lqNjL7wZy5R_XTo5fbVOEbeYx09PytGwsVpBXH2HKUKlxf2S3K3K7CQL8x6M2dVYKNYzHmWi3Vq0w1AjwAr6oLtSyt6ztHbMja1wv42b2bhEF5t85uUMNjH-a-71zSr0Q-bxrHeL37JaY7FuW3k2OYTHst1fOu-aXir4WZ3RJhvE0TdtkbcNfznjl6yyXjuwno5m6Ez8VPiExa8udGRiU7N5bhUasaJlEmpvBY2xWfvv0DU')"></div>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-primary">The Terrace</h3>
+<span class="font-label-caps text-label-caps bg-tertiary/10 text-tertiary px-3 py-1 rounded-full">Alfresco</span>
+</div>
+<p class="text-on-surface-variant mb-6 font-body-md">An open-air sanctuary under the stars, featuring lush greenery and the scent of jasmine. Ideal for cocktail receptions and vibrant, social evenings.</p>
+<div class="flex items-center gap-6 border-t border-outline-variant pt-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-xl" data-icon="groups">groups</span>
+<span class="font-label-caps text-label-caps text-on-surface">UP TO 45 GUESTS</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-xl" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-label-caps text-label-caps text-on-surface">OUTDOOR HEATING</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Inquiry Form Section -->
+<section class="max-w-4xl mx-auto">
+<div class="bg-surface-container-high p-8 md:p-16 rounded-xl relative overflow-hidden">
+<div class="relative z-10 text-center mb-12">
+<h2 class="font-headline-md text-primary mb-4">Inquire About Your Event</h2>
+<p class="text-on-surface-variant">Tell us about your vision, and our concierge will curate a personalized experience for your party.</p>
+</div>
+<form class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12">
+<!-- Event Type Selector -->
+<div class="md:col-span-2">
+<label class="font-label-caps text-label-caps text-outline uppercase block mb-4">Select Event Type</label>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-2 rounded-full border border-outline text-on-surface-variant hover:border-primary hover:text-primary transition-all font-body-md text-sm active:scale-95 bg-surface/50" type="button">Corporate</button>
+<button class="px-6 py-2 rounded-full border border-primary text-primary bg-primary-fixed transition-all font-body-md text-sm shadow-sm" type="button">Wedding</button>
+<button class="px-6 py-2 rounded-full border border-outline text-on-surface-variant hover:border-primary hover:text-primary transition-all font-body-md text-sm active:scale-95 bg-surface/50" type="button">Birthday</button>
+<button class="px-6 py-2 rounded-full border border-outline text-on-surface-variant hover:border-primary hover:text-primary transition-all font-body-md text-sm active:scale-95 bg-surface/50" type="button">Rehearsal</button>
+<button class="px-6 py-2 rounded-full border border-outline text-on-surface-variant hover:border-primary hover:text-primary transition-all font-body-md text-sm active:scale-95 bg-surface/50" type="button">Other</button>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-outline uppercase block text-[10px]">Full Name</label>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 placeholder:text-outline-variant py-2 font-body-md transition-colors outline-none" placeholder="Gabriel Hernandez" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-outline uppercase block text-[10px]">Preferred Date</label>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 placeholder:text-outline-variant py-2 font-body-md transition-colors outline-none" type="date"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-outline uppercase block text-[10px]">Expected Guests</label>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 placeholder:text-outline-variant py-2 font-body-md transition-colors outline-none" placeholder="20" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-outline uppercase block text-[10px]">Email Address</label>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 placeholder:text-outline-variant py-2 font-body-md transition-colors outline-none" placeholder="concierge@example.com" type="email"/>
+</div>
+<div class="md:col-span-2 space-y-1">
+<label class="font-label-caps text-label-caps text-outline uppercase block text-[10px]">Notes &amp; Vision</label>
+<textarea class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 placeholder:text-outline-variant py-2 font-body-md transition-colors outline-none resize-none" placeholder="Tell us about any specific dietary needs or ambiance preferences..." rows="3"></textarea>
+</div>
+<div class="md:col-span-2 flex justify-center pt-8">
+<button class="bg-primary text-primary-fixed font-label-caps text-label-caps uppercase tracking-widest px-12 py-5 rounded-full hover:bg-primary-container transition-all active:scale-95 shadow-lg shadow-primary/20" type="submit">
+                            Submit Request
+                        </button>
+</div>
+</form>
+<!-- Atmospheric Decorative Element -->
+<div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-9xl text-primary" data-icon="restaurant">restaurant</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-safe bg-surface/95 backdrop-blur-sm border-t-[0.5px] border-outline-variant h-20 z-50 shadow-[0_-4px_24px_rgba(45,36,30,0.06)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-all active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-[10px] mt-1 uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-all active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-caps text-[10px] mt-1 uppercase">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary after:content-[''] after:w-1 after:h-1 after:bg-tertiary after:rounded-full after:mt-1 active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="font-label-caps text-[10px] uppercase">Reserve</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-all active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-label-caps text-[10px] mt-1 uppercase">Loyalty</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-all active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-caps text-[10px] mt-1 uppercase">Events</span>
+</a>
+</nav>
+<footer class="bg-surface-container-highest py-16 px-container-padding-mobile md:px-container-padding-desktop mt-section-gap">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-outline-variant pb-12">
+<div>
+<h4 class="font-display-lg-mobile text-primary mb-6">Girl and the Goose</h4>
+<p class="text-on-surface-variant font-body-md">A culinary journey through the heart of Central America, reimagined for the modern palate.</p>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-primary uppercase">Contact</span>
+<p class="text-on-surface-variant">Calle de la Luna, 42<br/>San Salvador, El Salvador</p>
+<p class="text-on-surface-variant">+503 2245-8890</p>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-primary uppercase">Follow</span>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Instagram</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Facebook</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Twitter</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto pt-8 flex justify-between items-center text-[12px] text-outline font-label-caps uppercase">
+<span>© 2024 Girl and the Goose</span>
+<span>Artisanal Dining Experience</span>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for event type buttons
+        const eventButtons = document.querySelectorAll('form button[type="button"]');
+        eventButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                eventButtons.forEach(b => {
+                    b.classList.remove('border-primary', 'text-primary', 'bg-primary-fixed', 'shadow-sm');
+                    b.classList.add('border-outline', 'text-on-surface-variant', 'bg-surface/50');
+                });
+                btn.classList.add('border-primary', 'text-primary', 'bg-primary-fixed', 'shadow-sm');
+                btn.classList.remove('border-outline', 'text-on-surface-variant', 'bg-surface/50');
+            });
+        });
+
+        // Form submission animation placeholder
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            btn.innerHTML = 'Sending...';
+            btn.classList.add('opacity-50', 'pointer-events-none');
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Thank You';
+                btn.classList.remove('bg-primary');
+                btn.classList.add('bg-secondary');
+            }, 1500);
+        });
+    </script>
+</body></html>

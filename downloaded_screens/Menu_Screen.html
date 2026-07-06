@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Menu | Girl and the Goose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .grain-overlay {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "tertiary-container": "#cca730",
+                "inverse-surface": "#33302b",
+                "surface-variant": "#e8e1da",
+                "on-surface-variant": "#54433c",
+                "surface": "#fff8f1",
+                "surface-container-high": "#eee7df",
+                "on-secondary": "#ffffff",
+                "primary-fixed-dim": "#ffb596",
+                "background": "#fff8f1",
+                "surface-bright": "#fff8f1",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed": "#360f00",
+                "surface-container-highest": "#e8e1da",
+                "primary": "#823b18",
+                "tertiary-fixed-dim": "#e9c349",
+                "on-background": "#1e1b17",
+                "outline": "#87736b",
+                "on-primary-container": "#ffe1d6",
+                "primary-fixed": "#ffdbcd",
+                "surface-tint": "#944925",
+                "inverse-primary": "#ffb596",
+                "tertiary-fixed": "#ffe088",
+                "on-error": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-fixed-variant": "#76320f",
+                "surface-dim": "#dfd9d1",
+                "secondary": "#006e0c",
+                "on-surface": "#1e1b17",
+                "on-primary": "#ffffff",
+                "outline-variant": "#dac1b8",
+                "surface-container-low": "#f9f3eb",
+                "surface-container": "#f4ede5",
+                "on-tertiary-container": "#4e3d00",
+                "secondary-fixed-dim": "#77dd6a",
+                "on-secondary-fixed-variant": "#005307",
+                "secondary-fixed": "#92fa83",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed": "#002201",
+                "on-tertiary-fixed": "#241a00",
+                "on-tertiary-fixed-variant": "#574500",
+                "inverse-on-surface": "#f7f0e8",
+                "error": "#ba1a1a",
+                "tertiary": "#735c00",
+                "on-secondary-container": "#00730d",
+                "on-error-container": "#93000a",
+                "primary-container": "#a0522d",
+                "secondary-container": "#8ff780"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "container-padding-desktop": "40px",
+                "section-gap": "80px",
+                "container-padding-mobile": "20px",
+                "gutter": "24px",
+                "base": "8px"
+            },
+            "fontFamily": {
+                "body-md": ["dmSans"],
+                "display-lg-mobile": ["ebGaramond"],
+                "display-lg": ["ebGaramond"],
+                "body-lg": ["dmSans"],
+                "label-caps": ["dmSans"],
+                "headline-sm": ["ebGaramond"],
+                "headline-md": ["ebGaramond"]
+            },
+            "fontSize": {
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<div class="fixed inset-0 grain-overlay z-[9999]"></div>
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim border-b-[0.5px] border-outline-variant dark:border-outline z-50 transition-all duration-300">
+<div class="flex items-center justify-between px-container-padding-mobile md:px-container-padding-desktop py-4 w-full">
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-150 flex items-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary dark:text-primary-fixed tracking-tight text-center">Girl and the Goose</h1>
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-container-padding-mobile md:px-container-padding-desktop pb-32">
+<!-- Category Tabs -->
+<nav class="flex items-center justify-start overflow-x-auto gap-8 py-8 hide-scrollbar sticky top-[80px] bg-surface/95 backdrop-blur-md z-40 border-b border-outline-variant/30">
+<button class="font-label-caps text-label-caps uppercase text-primary border-b-2 border-primary pb-2 whitespace-nowrap">Starters</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Mains</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Desserts</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Cocktails</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Wine</button>
+<button class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors pb-2 whitespace-nowrap">Sunday Brunch</button>
+</nav>
+<!-- Menu Section: Starters -->
+<section class="mt-section-gap" id="starters">
+<div class="flex items-center gap-4 mb-10">
+<h2 class="font-headline-md text-headline-md text-on-background">Starters</h2>
+<div class="h-[1px] flex-grow bg-outline-variant/50"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Signature Item: Gigi's Guacamole -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/20 hover:border-primary/30 transition-all duration-500 hover:shadow-xl shadow-[#2D241E]/5">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Close-up of vibrant Gigi's Guacamole in a hand-crafted dark clay bowl. The avocado is chunky and fresh, topped with micro-greens, sliced radishes, and toasted seeds. Warm, moody candlelight creates dramatic shadows and golden highlights. The background features a rustic wooden table with a soft-focus texture of Central American textiles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvN6ZBp2aieueIxGL6Y7UxXHUvc1VPgdQG4Qgkcfg68-R6d7JKfgvdBg_UjK7Hw9qMU6Oiy-nshUy-PjWceyHTwBgmUCjAoMYEHoZHsFltKFE1quiO8wSnzW1ex9bSnGwMJiNHsT01uKHO7Gyneuw5Y4oaZk_9M_Ydv5MDfD7cQtTTj7xNXYzQPvcVUE7hKxu2I6C7Nr6t5jBA57uqliT7mf6YJW439VMKyPECHC2r7EviyW36SJ9I"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="bg-secondary text-on-secondary font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Signature</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Gigi's Guacamole</h3>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface-variant">65 AED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-2">Hand-mashed Hass avocado, lime zest, serrano chili, and roasted pumpkin seeds. Served with warm house-made corn crisps.</p>
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex justify-center items-center gap-2">
+<span>Add to order</span>
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Signature Item: Miso Seabass Ceviche -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/20 hover:border-primary/30 transition-all duration-500 hover:shadow-xl shadow-[#2D241E]/5">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Elegant plating of Miso Seabass Ceviche on a shallow ceramic plate. Thinly sliced fresh seabass is bathed in a golden miso leche de tigre, garnished with edible flowers, red onion curls, and drops of cilantro oil. The lighting is high-contrast and atmospheric, highlighting the translucent texture of the fish against a dark, moody background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYi0bMpFGXdhrKxQRMGXOz5EvC49bceuRKehvZ45I_8Ydki_0FpmsNUUWF119bVXrb-BOB3L_nWuKDNDjzNmkxHjRc5jpQdFeRPyaHbNHl_0AOPbaONgizRwSIYTRKxXTkLDUgPnVChZpT1jGHkFiuFbIBF8OrclZBIqa0-dbPVQYd6_7_hNofXDjDixxFJJV7zROrziJWB1dX9UfjnyletQS7z-03mPt4C1JQC75mSEc8sT7qE6TW"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="bg-secondary text-on-secondary font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Signature</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Miso Seabass Ceviche</h3>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface-variant">85 AED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-2">Wild-caught seabass, white miso infusion, charred corn, sweet potato textures, and crispy quinoa.</p>
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex justify-center items-center gap-2">
+<span>Add to order</span>
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Standard Item 1 -->
+<div class="flex flex-col md:flex-row gap-6 p-6 border-b border-outline-variant/30 group">
+<div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Artisanal beet-cured salmon appetizer served with whipped goat cheese and honeycomb. The dish is presented on a textured ivory ceramic plate. The mood is sophisticated and intimate, with soft light grazing the surface of the ingredients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa2IjttMiU2pRabv80dHJBqfIq5X4w-dpWNZVagdJH3YbvmF7EiVOEiVpRl5Guv28x_1b_mLDWI9FbndXJ0d7o-6CFmyvhGjykI9qrw5YFooA5BsmsUn_1ZQx1aS3vvXbIgPqdnf5ogScBOEJl17DW7-va8gbvM2p5SZWsb82FZTb8hrSwVGzt8-dq2MB2e9OY1PHuvNX457oWYDFyTzH1-W1Ww9kc_L6vJVOx0-WgKt8wAovsKxXZ"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-headline-sm text-[20px] text-on-background">Beetroot Cured Salmon</h3>
+<span class="font-body-md text-on-surface-variant">72 AED</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-4 text-sm">Horseradish cream, pickled shallots, dill oil, and artisanal sourdough crisps.</p>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-caps text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors">Add to order</button>
+</div>
+</div>
+<!-- Standard Item 2 -->
+<div class="flex flex-col md:flex-row gap-6 p-6 border-b border-outline-variant/30 group">
+<div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Roasted heirloom cauliflower with tahini emulsion and pomegranate jewels. The dish is served in a shallow terracotta bowl, evoking a rustic Central American feel. Warm, earthy tones dominate the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWRhZz-EZnIA95zPnEQmIPFoVLN46k4E5uh8SYZ2D1_RGEBgcxf94qO64V7hu434GFAxPUkqLbaz-Hmjx1x5uNbOVtbQoGCw7zBv5bKVDS_bZEV0fqmClXDcVbUHsXfF9CPHdN6CyRsJwzlpoIrMHaFYV5esd1TpgHfB4zmm084K9elJm9xjJY9QuPRdCZKZpb1UniR6FAcsCGGJrvGqtb1fFaTzcNHF76KcVkJnpATpscVuNF7Hpf"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-headline-sm text-[20px] text-on-background">Charred Heirloom Cauliflower</h3>
+<span class="font-body-md text-on-surface-variant">58 AED</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-4 text-sm">Burnt butter tahini, toasted hazelnuts, and fresh pomegranate molasses.</p>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-caps text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors">Add to order</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Menu Section: Mains -->
+<section class="mt-section-gap" id="mains">
+<div class="flex items-center gap-4 mb-10">
+<h2 class="font-headline-md text-headline-md text-on-background">Mains</h2>
+<div class="h-[1px] flex-grow bg-outline-variant/50"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Signature Item: Clay Pot Short Ribs -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/20 hover:border-primary/30 transition-all duration-500 hover:shadow-xl shadow-[#2D241E]/5">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Slow-braised Clay Pot Short Ribs, tender and glistening with a dark reduction. The dish is presented in a deep, hand-thrown clay pot with charred baby carrots and smooth parsnip puree. Steam rises softly in the warm, atmospheric lighting of a luxury dining room. The palette is rich with chocolate browns, deep reds, and creamy whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDr9KOiPilb_Au_HVif6JRSk25sbOK4TcrVOb1lRJahEBnt9BQ-sNvDVlT2VmkSSOpXdYDUfHayi2Ag7m0shOzF_INeen8SmHNuSpkzTYx7ZUIlyOIfPT8cgI6gi9DjtcXMZM2o1DFStiMTc4tgSWmViLzRpHLbc3W7mJEESHTMzWKDtFe4QOsA-0gRpGLD7NyFOJZJvZpg3YnjIHq2WYI0yiIEnXUswk9pEnFux7m-MqWtk0IUJwA"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="bg-secondary text-on-secondary font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Signature</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Clay Pot Short Ribs</h3>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface-variant">165 AED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">48-hour slow braised Wagyu short ribs, cacao-infused jus, smoked mash, and heritage root vegetables.</p>
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex justify-center items-center gap-2">
+<span>Add to order</span>
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Signature Item: Salvadoran Pupusas -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/20 hover:border-primary/30 transition-all duration-500 hover:shadow-xl shadow-[#2D241E]/5">
+<div class="aspect-[16/9] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Authentic Salvadoran Pupusas stacked elegantly on a woven textile placemat. The thick corn tortillas are filled with melting cheese and loroco flowers, showing slight golden char marks. Beside them is a bowl of spicy curtido (cabbage slaw) and rich tomato salsa. The lighting is warm and sunset-like, emphasizing the artisanal, handmade quality of the food." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbrOVZEEqz5U3Bb9JPKPEzOBPALUChGhH6UvlFfhLpxAMavzE89O40lSljPMzUV-odTZWU0aRRfA3IrWR-x55knI5nw3hgkg7y5hnvWsvkVSRyjo5bLXFFgsyScZTGaYdhAEixJ6I1nXPYmqZyqTt9muuOT68Nro6crnc3ACthpqSA6MuJ-geqPe8QVGRe1Mnfhp1s0iAcanDJuGVCbkXwzbhzqc6PoJKlu4SG54edlWNcT46kql3W"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="bg-secondary text-on-secondary font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Signature</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Salvadoran Pupusas</h3>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface-variant">95 AED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Handmade corn masa stuffed with artisanal cheese and Loroco flowers. Served with curtido slaw and salsa roja.</p>
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex justify-center items-center gap-2">
+<span>Add to order</span>
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Standard Item 3 -->
+<div class="flex flex-col md:flex-row gap-6 p-6 border-b border-outline-variant/30 group">
+<div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Pan-seared Chilean Sea Bass served over a bed of saffron risotto with asparagus spears. The fish has a perfectly golden crust. The lighting is soft and elegant, highlighting the vibrant yellow of the saffron and the fresh green of the vegetables." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEhqleTXuBBWCKqsctAqu37PBhnOj6Kr85HoPareyueII3rrKuy7VV9gA99TQZFuGjxXPl-Gp_am-JG-DE8h1gx5Tt6gnMYEQY_tr8adi8jmaC7x6xQhukb6CI6jZDwHk778JPiPVMOBSTlyNtmNVa-e4PktIaRaQWGRsMQKxASjyb8fdpWvg_T0sV2gaSfKDC1HQfut3-SugZ_dWW-JoC4eV8GpY-frfaMSJsFuUC8i9AjBp2jAth"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-headline-sm text-[20px] text-on-background">Pan-Seared Sea Bass</h3>
+<span class="font-body-md text-on-surface-variant">145 AED</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-4 text-sm">Saffron risotto, grilled asparagus, and a delicate lemon-caper brown butter.</p>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-caps text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors">Add to order</button>
+</div>
+</div>
+<!-- Standard Item 4 -->
+<div class="flex flex-col md:flex-row gap-6 p-6 border-b border-outline-variant/30 group">
+<div class="w-full md:w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Gnocchi with wild mushrooms and truffle cream sauce, garnished with fresh herbs. The dish is presented in a deep white porcelain bowl. The lighting is moody and focused, highlighting the glossy sauce and the texture of the mushrooms." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSvFblYEUzbBXKuuIxJQB0rUBicoQ1VHeEyK9zscv_7nw5sB-Fz950TYblF-69YGnkRiN8J5fxfJ5YefdRQReVN95Mj-AzoGKmMWDO9sDMKOFrCWJoZ8CekEwCEOYfyM7vt6qgdBd0k_07xF9q_EfaAK7KLMZmzA4ReWKgdKUwxeoZxv0Ndwwqxj4m9McL3jRO6n3mNNTpV4HLEF5BW5Sl9a-3IsNa212QY0JbtW94jYmwlKZZGcW7"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-headline-sm text-[20px] text-on-background">Wild Mushroom Gnocchi</h3>
+<span class="font-body-md text-on-surface-variant">110 AED</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-4 text-sm">Hand-rolled potato gnocchi, forest mushrooms, truffle cream, and pecorino romano.</p>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-caps text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors">Add to order</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 h-20 bg-surface dark:bg-inverse-surface border-t-[0.5px] border-outline-variant bg-surface/95 backdrop-blur-sm shadow-[0_-4px_24px_rgba(45,36,30,0.06)] flex justify-around items-center px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-all duration-300 active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim after:content-[''] after:w-1 after:h-1 after:bg-tertiary after:rounded-full after:mt-1 active:translate-y-[-2px] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-all duration-300 active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Reserve</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-all duration-300 active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Loyalty</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-all duration-300 active:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Events</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });</script></body></html>

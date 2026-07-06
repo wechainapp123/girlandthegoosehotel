@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sunday Brunch | Girl and the Goose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .grain-texture {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #87736b; border-radius: 10px; }
+        
+        .active-package { border-color: #823b18; background-color: #f9f3eb; }
+        .active-toggle { background-color: #006e0c !important; transform: translateX(100%); }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#cca730",
+                        "inverse-surface": "#33302b",
+                        "surface-variant": "#e8e1da",
+                        "on-surface-variant": "#54433c",
+                        "surface": "#fff8f1",
+                        "surface-container-high": "#eee7df",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#ffb596",
+                        "background": "#fff8f1",
+                        "surface-bright": "#fff8f1",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#360f00",
+                        "surface-container-highest": "#e8e1da",
+                        "primary": "#823b18",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-background": "#1e1b17",
+                        "outline": "#87736b",
+                        "on-primary-container": "#ffe1d6",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-tint": "#944925",
+                        "inverse-primary": "#ffb596",
+                        "tertiary-fixed": "#ffe088",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#76320f",
+                        "surface-dim": "#dfd9d1",
+                        "secondary": "#006e0c",
+                        "on-surface": "#1e1b17",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#dac1b8",
+                        "surface-container-low": "#f9f3eb",
+                        "surface-container": "#f4ede5",
+                        "on-tertiary-container": "#4e3d00",
+                        "secondary-fixed-dim": "#77dd6a",
+                        "on-secondary-fixed-variant": "#005307",
+                        "secondary-fixed": "#92fa83",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#002201",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "inverse-on-surface": "#f7f0e8",
+                        "error": "#ba1a1a",
+                        "tertiary": "#735c00",
+                        "on-secondary-container": "#00730d",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#a0522d",
+                        "secondary-container": "#8ff780"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "40px",
+                        "section-gap": "80px",
+                        "container-padding-mobile": "20px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["DM Sans"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-lg": ["DM Sans"],
+                        "label-caps": ["DM Sans"],
+                        "headline-sm": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+<div class="grain-texture"></div>
+<!-- Top App Bar -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky z-[60] border-b-[0.5px] border-outline-variant dark:border-outline">
+<div class="flex items-center justify-between px-container-padding-mobile py-4 w-full max-w-[1200px] mx-auto">
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary dark:text-primary-fixed tracking-tight text-center">Girl and the Goose</h1>
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto pb-32">
+<!-- Hero Section -->
+<section class="px-container-padding-mobile pt-10 md:pt-16 md:px-0">
+<div class="text-center max-w-2xl mx-auto mb-12">
+<span class="font-label-caps text-label-caps uppercase text-secondary mb-2 block tracking-[0.2em]">Sunday Rituals</span>
+<h2 class="font-display-lg text-display-lg text-primary mb-4 italic">Artisanal Sunday Brunch</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">A slow morning in the heart of Antigua. Savor hand-pressed flavors and locally roasted coffee in our sun-drenched courtyard.</p>
+</div>
+</section>
+<!-- Brunch Packages Bento Grid -->
+<section class="px-container-padding-mobile md:px-0 mb-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Package 1 -->
+<div class="group relative overflow-hidden rounded-xl border-[0.5px] border-outline-variant bg-surface-container-low transition-all duration-500 hover:shadow-[0_12px_40px_rgba(45,36,30,0.08)]">
+<div class="aspect-[4/3] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A moody, high-contrast photograph of a Central American brunch spread. A beautifully plated dish of Huevos Divorciados sits on a hand-thrown ceramic plate, next to a steaming cup of dark coffee and fresh tropical fruit. The scene is illuminated by soft morning sunlight filtering through terracotta tiles, creating deep shadows and warm, golden highlights. The aesthetic is upscale, artisanal, and intimate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnb1hitLoI4ahtMlioWWWnDNH9W50NVjBY9ygF42LKo5MFBpgQqBCK4heXUW-qa_mb2YzNDDJbUaT5X-FEsZP3VRkR3zIr7mMg1rpF4ME0jh2yUAnAYNnicRCUTy7OGRSjUdKoYTzp-KGr0gU8qHxW_d_BTvLyF-LKtPbCw8VxtpbBruDGv1h_SqyZfoOPTHilBnda9uRRANagG4dcaUPuw2L-T4NVA85V-fUh7ixARVjk7MlihTMT"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">The Antigua Morning</h3>
+<p class="text-secondary font-label-caps text-label-caps uppercase">Our Signature Package</p>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary">$32</span>
+</div>
+<p class="text-on-surface-variant mb-6 font-body-md">Includes your choice of three small plates, unlimited artisanal coffee, and our famous hand-pressed guava pastries.</p>
+<div class="flex gap-4">
+<button class="package-btn flex-1 py-3 px-4 rounded-full border border-outline text-label-caps font-label-caps uppercase hover:bg-primary hover:text-on-primary transition-all duration-300" onclick="selectPackage(this, 'Food Only')">Food Only</button>
+<button class="package-btn flex-1 py-3 px-4 rounded-full border border-outline text-label-caps font-label-caps uppercase hover:bg-secondary hover:text-on-secondary transition-all duration-300" onclick="selectPackage(this, 'Drinks Included')">Drinks +$12</button>
+</div>
+</div>
+</div>
+<!-- Package 2 -->
+<div class="group relative overflow-hidden rounded-xl border-[0.5px] border-outline-variant bg-surface-container-low transition-all duration-500 hover:shadow-[0_12px_40px_rgba(45,36,30,0.08)]">
+<div class="aspect-[4/3] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up of luxury brunch cocktails being poured into crystal glassware in an intimate, low-lit restaurant. A vibrant hibiscus mimosa with a gold-dusted rim sits next to a green-hued matcha latte. The background features warm terracotta walls and artisanal clay decorations. Soft ambient lighting creates a sophisticated, candlelit atmosphere with rich earthy tones of green and deep brown." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtfge-lMiNXbYkYNl6N1g13OWhSl0mELQbwKCZqSkD2Iw1G7wTS9lpEytLeZawBG3L9q00zokNPgnRuco6ttrrnom76WfIlphljuK0R6L5sgDzGc2cK94P5irPP9lgMjnE24_Eq_CK1bvu8MXSv_7ujgcTRN2jcLvq8Eu-hGNSo_TfBsyOmzU4SXVsQoTBt39KK_FRiRIDDykNF-7uGV7iQK9CjZNaTEXy8L3_aAOIR3j9EN54V7UB"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">The Bottomless Courtyard</h3>
+<p class="text-secondary font-label-caps text-label-caps uppercase">Celebration Special</p>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary">$55</span>
+</div>
+<p class="text-on-surface-variant mb-6 font-body-md">A full seasonal menu paired with unlimited Hibiscus Mimosas, artisanal sangria, and our select house wines for 90 minutes.</p>
+<div class="flex gap-4">
+<button class="package-btn flex-1 py-3 px-4 rounded-full border border-outline text-label-caps font-label-caps uppercase hover:bg-primary hover:text-on-primary transition-all duration-300" onclick="selectPackage(this, 'Standard')">Standard</button>
+<button class="package-btn flex-1 py-3 px-4 rounded-full border border-outline text-label-caps font-label-caps uppercase hover:bg-secondary hover:text-on-secondary transition-all duration-300" onclick="selectPackage(this, 'Premium')">Premium Spirit +$15</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Selection Controls -->
+<section class="px-container-padding-mobile md:px-0">
+<div class="bg-surface-container rounded-2xl p-8 md:p-12 border-[0.5px] border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Guest & Time -->
+<div class="space-y-8">
+<div>
+<label class="font-label-caps text-label-caps uppercase text-primary mb-4 block">Table Size</label>
+<div class="flex items-center gap-6">
+<button class="w-12 h-12 rounded-full border border-outline flex items-center justify-center text-primary active:scale-90 transition-transform" onclick="updateGuests(-1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-headline-md text-headline-md text-primary w-8 text-center" id="guest-count">2</span>
+<button class="w-12 h-12 rounded-full border border-outline flex items-center justify-center text-primary active:scale-90 transition-transform" onclick="updateGuests(1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+<span class="text-on-surface-variant font-body-md ml-auto">Guests</span>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps uppercase text-primary mb-4 block">Preferred Time</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="time-slot py-3 rounded-lg border border-outline-variant text-body-md hover:border-primary transition-colors" onclick="selectTime(this)">10:00</button>
+<button class="time-slot py-3 rounded-lg border border-outline-variant text-body-md hover:border-primary transition-colors bg-surface-container-high border-primary text-primary" onclick="selectTime(this)">11:30</button>
+<button class="time-slot py-3 rounded-lg border border-outline-variant text-body-md hover:border-primary transition-colors" onclick="selectTime(this)">13:00</button>
+</div>
+</div>
+</div>
+<!-- Summary & Notifications -->
+<div class="space-y-8 border-t md:border-t-0 md:border-l border-outline-variant pt-8 md:pt-0 md:pl-12">
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps uppercase text-on-surface leading-tight">Brunch Society</p>
+<p class="text-[12px] text-on-surface-variant">Weekly announcements &amp; early access</p>
+</div>
+</div>
+<button class="relative w-12 h-6 bg-surface-variant rounded-full p-1 transition-colors duration-300" onclick="toggleSwitch(this)">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 pointer-events-none"></div>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-end mb-2">
+<span class="text-on-surface-variant">Estimated Total</span>
+<span class="font-headline-md text-headline-md text-primary">$64.00</span>
+</div>
+<button class="w-full bg-primary text-white font-label-caps text-label-caps uppercase py-5 rounded-full shadow-lg hover:shadow-xl hover:opacity-90 active:scale-[0.98] transition-all tracking-[0.1em]">
+                                Confirm Reservation
+                            </button>
+<p class="text-center text-[12px] text-on-surface-variant opacity-60 px-4 italic">No prepayment required. We hold tables for 15 minutes.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-safe bg-surface dark:bg-inverse-surface z-50 h-20 border-t-[0.5px] border-outline-variant bg-surface/95 backdrop-blur-sm shadow-[0_-4px_24px_rgba(45,36,30,0.06)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim after:content-[''] after:w-1 after:h-1 after:bg-tertiary after:rounded-full after:mt-1 active:translate-y-[-2px] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_available</span>
+<span class="font-label-caps text-label-caps uppercase">Reserve</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Loyalty</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-label-caps uppercase mt-1">Events</span>
+</a>
+</nav>
+<script>
+        function updateGuests(delta) {
+            const countEl = document.getElementById('guest-count');
+            let current = parseInt(countEl.innerText);
+            current = Math.max(1, Math.min(12, current + delta));
+            countEl.innerText = current;
+        }
+
+        function selectPackage(btn, type) {
+            // Remove active states from siblings in the same card
+            const card = btn.closest('div');
+            card.querySelectorAll('.package-btn').forEach(b => {
+                b.classList.remove('bg-primary', 'text-on-primary', 'bg-secondary', 'text-on-secondary');
+            });
+            
+            // Apply appropriate theme color
+            if (type.includes('Drinks') || type === 'Premium') {
+                btn.classList.add('bg-secondary', 'text-on-secondary');
+            } else {
+                btn.classList.add('bg-primary', 'text-on-primary');
+            }
+
+            // Visual feedback for selected card
+            document.querySelectorAll('.group').forEach(c => c.classList.remove('border-primary', 'bg-surface-container-high'));
+            btn.closest('.group').classList.add('border-primary', 'bg-surface-container-high');
+        }
+
+        function selectTime(btn) {
+            document.querySelectorAll('.time-slot').forEach(b => {
+                b.classList.remove('bg-surface-container-high', 'border-primary', 'text-primary');
+            });
+            btn.classList.add('bg-surface-container-high', 'border-primary', 'text-primary');
+        }
+
+        function toggleSwitch(btn) {
+            const circle = btn.querySelector('div');
+            const isActive = circle.classList.contains('translate-x-6');
+            
+            if (isActive) {
+                circle.classList.remove('translate-x-6');
+                btn.classList.remove('bg-secondary');
+                btn.classList.add('bg-surface-variant');
+            } else {
+                circle.classList.add('translate-x-6');
+                btn.classList.remove('bg-surface-variant');
+                btn.classList.add('bg-secondary');
+            }
+        }
+
+        // Interaction effects
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.96)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = '';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Events - Girl and the Goose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .serif-italic { font-family: 'EB Garamond', serif; font-style: italic; }
+        .divider-motif::after {
+            content: '⬥';
+            font-size: 10px;
+            color: #823b18;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff8f1;
+            padding: 0 8px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#cca730",
+                        "inverse-surface": "#33302b",
+                        "surface-variant": "#e8e1da",
+                        "on-surface-variant": "#54433c",
+                        "surface": "#fff8f1",
+                        "surface-container-high": "#eee7df",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#ffb596",
+                        "background": "#fff8f1",
+                        "surface-bright": "#fff8f1",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#360f00",
+                        "surface-container-highest": "#e8e1da",
+                        "primary": "#823b18",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-background": "#1e1b17",
+                        "outline": "#87736b",
+                        "on-primary-container": "#ffe1d6",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-tint": "#944925",
+                        "inverse-primary": "#ffb596",
+                        "tertiary-fixed": "#ffe088",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#76320f",
+                        "surface-dim": "#dfd9d1",
+                        "secondary": "#006e0c",
+                        "on-surface": "#1e1b17",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#dac1b8",
+                        "surface-container-low": "#f9f3eb",
+                        "surface-container": "#f4ede5",
+                        "on-tertiary-container": "#4e3d00",
+                        "secondary-fixed-dim": "#77dd6a",
+                        "on-secondary-fixed-variant": "#005307",
+                        "secondary-fixed": "#92fa83",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#002201",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "inverse-on-surface": "#f7f0e8",
+                        "error": "#ba1a1a",
+                        "tertiary": "#735c00",
+                        "on-secondary-container": "#00730d",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#a0522d",
+                        "secondary-container": "#8ff780"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "40px",
+                        "section-gap": "80px",
+                        "container-padding-mobile": "20px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["DM Sans"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "body-lg": ["DM Sans"],
+                        "label-caps": ["DM Sans"],
+                        "headline-sm": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased selection:bg-tertiary-container selection:text-on-tertiary-container overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- Top AppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface/80 backdrop-blur-md border-b-[0.5px] border-outline-variant">
+<div class="flex items-center justify-between px-container-padding-mobile md:px-container-padding-desktop py-4 max-w-[1200px] mx-auto">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight">Girl and the Goose</h1>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto pb-32">
+<!-- Push Notification Preview -->
+<section class="px-container-padding-mobile mt-8 mb-12">
+<div class="relative group cursor-pointer">
+<div class="absolute -inset-1 bg-gradient-to-r from-tertiary/20 to-primary/10 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative flex items-center p-5 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_4px_24px_rgba(45,36,30,0.04)]">
+<div class="w-12 h-12 flex-shrink-0 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container mr-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Notification</span>
+<span class="text-[10px] text-outline font-body-md">Just now</span>
+</div>
+<p class="font-body-md text-on-surface">This Sunday Brunch at Girl and the Goose... <span class="text-primary font-bold">Book now.</span></p>
+</div>
+<span class="material-symbols-outlined text-outline ml-4">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Events Headline -->
+<section class="px-container-padding-mobile text-center mb-16">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Upcoming Gatherings</h2>
+<div class="relative h-4 w-full flex items-center justify-center mb-6">
+<div class="w-full h-[0.5px] bg-outline-variant opacity-50"></div>
+<div class="divider-motif"></div>
+</div>
+<p class="serif-italic text-body-lg max-w-xl mx-auto opacity-70">Curated moments of culinary storytelling, where Central American heritage meets the intimacy of shared tables.</p>
+</section>
+<!-- Featured Event Card -->
+<section class="px-container-padding-mobile mb-16">
+<div class="relative w-full aspect-[4/5] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl border border-outline-variant group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] group-hover:scale-105" data-alt="A moody, close-up photograph of a vibrant Central American brunch spread. Warm sunlight streams across a rustic wooden table featuring artisanal ceramic plates with poached eggs, rich red mole sauce, fresh avocado, and handmade corn tortillas. The scene is intimate and luxurious, with deep shadows and golden highlights that emphasize the textures of the food and hand-thrown pottery." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-ixH5oNecw2rQQc48-iIgiR5pwSwF7XXjalivFl_Ik5nn7KnqoTbCfcZiRnFGz0CvUG1jw5XHJSzokgKO3m4NKNTZZ_E96DmdTYx3BOTny2rR85lmgyOGyuasu_GR9KXb0NePM5g5WAR20FXjtmNwIkUvb68mvh3YQ71WoVQL9X_rVFqF-OeYXo63OjxTdVY_ZQQA4P1O1040UTB7LmrnA0ETcRr_Q00jblb5yyulBjZ59HM0ODAa')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+<div class="flex items-center gap-2 mb-4">
+<span class="px-3 py-1 bg-tertiary text-on-tertiary rounded-full font-label-caps text-label-caps">This Sunday</span>
+<span class="px-3 py-1 bg-surface/20 backdrop-blur-md text-white rounded-full font-label-caps text-label-caps">11:00 AM — 3:00 PM</span>
+</div>
+<h3 class="font-display-lg text-white mb-4">The Solstice Brunch</h3>
+<p class="text-white/80 font-body-md max-w-lg mb-8 leading-relaxed">Join us for a seasonal celebration of light and harvest. Featuring our signature blue corn chilaquiles and small-batch mezcal mimosas.</p>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 rounded-full uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 flex items-center gap-3">
+                        Reserve Your Seat
+                        <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Events Grid (Bento Style) -->
+<section class="px-container-padding-mobile grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Event 1 -->
+<div class="group flex flex-col">
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 border border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-contrast photograph of an evening wine tasting event. The setting is dimly lit by candles reflecting off crystal glasses filled with deep red wine. In the background, artisanal cheeses and cured meats are arranged on a dark slate board. The mood is sophisticated and mysterious, emphasizing the golden glow of candlelight and rich, earthy tones of the interior." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA94LrrmrheOaouo2JomLQ5yKUKmy38wu0bhtVzhbVe0tHhVYMALrm5gcheuXtCnhkmwUSd_KDT4S_xO21OFBMMHIB1P4tsVEt09-V-TSVfc_QNwOqd70LF_MOQAfZAjCZzfM9D0PEkKedxPNyg4sB164qq61RfZUa084xrq-V9SzivoQn07TrDt3rMPINlMQf_x3SUcQsv38n5Z_pGkxXjY1Qf5oU_M-JYDrx8M5GBZ75-E7_z-Yzt"/>
+<div class="absolute top-4 left-4">
+<div class="bg-surface/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="font-label-caps text-[10px] text-primary">DEC 14</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-2">Heritage Wine Tasting</h4>
+<p class="text-on-surface-variant font-body-md mb-4 flex-grow">An exploration of volcanic terroir through rare Central American vintages and small plates.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-primary font-label-caps text-label-caps">$85 Per Guest</span>
+<button class="text-primary font-bold text-label-caps underline underline-offset-4 uppercase tracking-tighter">View Details</button>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="group flex flex-col">
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 border border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A brightly lit, airy scene of an artisanal coffee workshop. A skilled barista is pouring milk into a handmade ceramic mug, creating intricate latte art. The background shows bags of single-origin coffee beans and wooden tools on a clean, ivory-toned stone counter. The style is minimalist and elegant, focused on the tactile craft and artisanal quality of the process." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf9sTJrZULNpCi8MGgYs-pEpXJO7YGgHxBVMPqZT0Vi3MfsfvcU0BLd6bO1sSNYhZwfiymvQXG1c9KM0sjr4fgHKE_1we3B9hPZ_0BOSN-Zk0KmMajl5VLB-CX47qjhQF3ZLbPwAf4oArgx-ybkeTUHo_yQcczkaF9dvpmtjFAswggiDA7f3kTNzmcU9jCCBzKGWKH3oetw7bgxmb09vW4T8GcDqyAfeuIEERuGR2NpHhV7fWnAmTF"/>
+<div class="absolute top-4 left-4">
+<div class="bg-surface/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="font-label-caps text-[10px] text-primary">DEC 20</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-2">The Cupping Room</h4>
+<p class="text-on-surface-variant font-body-md mb-4 flex-grow">Interactive workshop focusing on altitude, roasting profiles, and the art of the perfect pour-over.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-primary font-label-caps text-label-caps">$45 Per Guest</span>
+<button class="text-primary font-bold text-label-caps underline underline-offset-4 uppercase tracking-tighter">View Details</button>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="group flex flex-col">
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 border border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An atmospheric night scene showing an intimate live jazz performance in a cozy, upscale lounge. Soft blue and warm orange stage lighting illuminates a saxophonist and a double bass player. The audience is visible as soft silhouettes in the foreground, holding artisanal cocktails. The visual style is grainy and cinematic, evoking a sense of exclusivity and warm social connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrykPATtqe3nzttzVo7RIvkI-yhub3t0DXDagsBbEjUVwujItBMcapds-FQozspK_uefMkaTo7l4ZkGPMK4a_HJCeG-_S_wnwJWZwmWvASGA-Lcfey6k8B1n0s53Ztaf74c4ypoc3-s3RLS-Vf3C5OUr-dod-QG9xaFDetszIQDkk4PaN-K169RAc4ajrpGgWp4olgwEb8H_6tv5nzq-d0qh6PSeWaS3S-elA5_37GSrUnefTWTa_h"/>
+<div class="absolute top-4 left-4">
+<div class="bg-surface/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="font-label-caps text-[10px] text-primary">DEC 28</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-2">Jazz &amp; Agave Nights</h4>
+<p class="text-on-surface-variant font-body-md mb-4 flex-grow">Live improvisational jazz paired with a curated menu of rare mezcal flights and fireside botanas.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-primary font-label-caps text-label-caps">Complimentary</span>
+<button class="text-primary font-bold text-label-caps underline underline-offset-4 uppercase tracking-tighter">View Details</button>
+</div>
+</div>
+</section>
+<!-- Newsletter / Community Section -->
+<section class="mt-section-gap px-container-padding-mobile">
+<div class="bg-surface-container-high rounded-3xl p-10 md:p-16 text-center border border-outline-variant relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px] text-primary">local_florist</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Never Miss a Moment</h3>
+<p class="font-body-md text-on-surface-variant max-w-md mx-auto mb-8">Receive early-access invitations and exclusive recipes from our kitchen directly to your inbox.</p>
+<form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+<input class="flex-grow bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary text-body-md py-3 placeholder:text-outline/50" placeholder="Your email address" type="email"/>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-3 rounded-full hover:bg-primary/90 transition-colors" type="submit">Join Us</button>
+</form>
+<p class="text-[11px] text-outline mt-6 font-body-md uppercase tracking-widest">Intimate Luxury • Handcrafted Heritage</p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-sm border-t-[0.5px] border-outline-variant shadow-[0_-4px_24px_rgba(45,36,30,0.06)] h-20 flex justify-around items-center px-4 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-[10px] uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300">
+<span class="material-symbols-outlined mb-1">restaurant_menu</span>
+<span class="font-label-caps text-[10px] uppercase">Menu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300">
+<span class="material-symbols-outlined mb-1">event_available</span>
+<span class="font-label-caps text-[10px] uppercase">Reserve</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-colors active:translate-y-[-2px] transition-all duration-300">
+<span class="material-symbols-outlined mb-1">verified</span>
+<span class="font-label-caps text-[10px] uppercase">Loyalty</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary after:content-[''] after:w-1 after:h-1 after:bg-tertiary after:rounded-full after:mt-1 active:translate-y-[-2px] transition-all duration-300">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-caps text-[10px] uppercase font-medium">Events</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for hover effects on cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Sticky Header Scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+                header.classList.remove('bg-surface/80');
+                header.classList.add('bg-surface/95');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.add('bg-surface/80');
+                header.classList.remove('bg-surface/95');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gift Cards | Girl and the Goose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 9999;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        .clay-card {
+            background: linear-gradient(145deg, #fffcf9, #f4ede5);
+            box-shadow: 0 10px 40px -10px rgba(45, 36, 30, 0.08);
+        }
+        .terracotta-texture {
+            background-image: radial-gradient(circle at 2px 2px, rgba(130, 59, 24, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .gift-card-preview {
+            aspect-ratio: 1.586/1;
+            perspective: 1000px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus { outline: none; border-color: #823b18 !important; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#cca730",
+                      "inverse-surface": "#33302b",
+                      "surface-variant": "#e8e1da",
+                      "on-surface-variant": "#54433c",
+                      "surface": "#fff8f1",
+                      "surface-container-high": "#eee7df",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#ffb596",
+                      "background": "#fff8f1",
+                      "surface-bright": "#fff8f1",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#360f00",
+                      "surface-container-highest": "#e8e1da",
+                      "primary": "#823b18",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "on-background": "#1e1b17",
+                      "outline": "#87736b",
+                      "on-primary-container": "#ffe1d6",
+                      "primary-fixed": "#ffdbcd",
+                      "surface-tint": "#944925",
+                      "inverse-primary": "#ffb596",
+                      "tertiary-fixed": "#ffe088",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#76320f",
+                      "surface-dim": "#dfd9d1",
+                      "secondary": "#006e0c",
+                      "on-surface": "#1e1b17",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#dac1b8",
+                      "surface-container-low": "#f9f3eb",
+                      "surface-container": "#f4ede5",
+                      "on-tertiary-container": "#4e3d00",
+                      "secondary-fixed-dim": "#77dd6a",
+                      "on-secondary-fixed-variant": "#005307",
+                      "secondary-fixed": "#92fa83",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#002201",
+                      "on-tertiary-fixed": "#241a00",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "inverse-on-surface": "#f7f0e8",
+                      "error": "#ba1a1a",
+                      "tertiary": "#735c00",
+                      "on-secondary-container": "#00730d",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#a0522d",
+                      "secondary-container": "#8ff780"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding-desktop": "40px",
+                      "section-gap": "80px",
+                      "container-padding-mobile": "20px",
+                      "gutter": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["DM Sans"],
+                      "display-lg-mobile": ["EB Garamond"],
+                      "display-lg": ["EB Garamond"],
+                      "body-lg": ["DM Sans"],
+                      "label-caps": ["DM Sans"],
+                      "headline-sm": ["EB Garamond"],
+                      "headline-md": ["EB Garamond"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                      "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<div class="noise-overlay"></div>
+<!-- Header (TopAppBar) -->
+<header class="w-full top-0 sticky z-[60] bg-surface/80 backdrop-blur-md border-b-[0.5px] border-outline-variant flex items-center justify-between px-container-padding-mobile md:px-container-padding-desktop py-4">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+</div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:text-display-lg text-primary tracking-tight">Girl and the Goose</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<main class="max-w-[1200px] mx-auto px-container-padding-mobile md:px-container-padding-desktop py-12 md:py-20 terracotta-texture">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-start">
+<!-- Left Column: Visual Preview -->
+<section class="space-y-8 sticky top-32">
+<div class="space-y-4">
+<span class="font-label-caps text-label-caps uppercase text-tertiary tracking-widest block">The Art of Gifting</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Experience Central American Luxury</h2>
+<p class="text-on-surface-variant font-body-lg max-w-md">Share the sensory journey of wood-fired flavors and artisanal craft with those you value most.</p>
+</div>
+<!-- Digital Gift Card Visual -->
+<div class="gift-card-preview w-full rounded-xl overflow-hidden shadow-2xl relative transition-transform duration-500 hover:rotate-1" id="gift-card-preview">
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img class="w-full h-full object-cover grayscale-[0.2] brightness-75" data-alt="A moody, high-contrast close-up of a hand-thrown ceramic plate with artisanal Central American textures. The lighting is low and atmospheric, reminiscent of a candlelit fine dining room. Warm terracotta tones and deep espresso shadows create a sense of intimate luxury and sophisticated craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxsvoD29VH75Dm5YQA_NnKT88tmNOhSFAU3pkYe-SQpHuucGBQSnVMpJFeYOkaDmBTOlSrFhJNJ51Gd5_3kyCWnSosTB-yOOfmqKHwWTS898ujbhrAZFBqGXyizmroY9OFHDpzA5Y2y2WCdOdcpoWUry5SghhKV0Sk-Ll1Nz35H3PuEezVw9Lx8J8yf_rwMNr5VN8vwcsTt3i5oeB38BRNiQ6kPZbpxkd-HtgahrWcJrEMrrL4S9NB"/>
+</div>
+<!-- Brand Motif Overlay -->
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+<div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-surface-container-lowest tracking-tight opacity-90">G&amp;G</span>
+<div class="w-12 h-12 border border-surface-container-lowest/30 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-container-lowest text-2xl">eco</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-end gap-2">
+<span class="text-surface-container-lowest font-display-lg" id="preview-amount">200</span>
+<span class="text-surface-container-lowest/80 font-label-caps mb-3">AED</span>
+</div>
+<p class="text-surface-container-lowest/60 font-label-caps tracking-widest uppercase">Digital Experience Voucher</p>
+</div>
+</div>
+<!-- Subtle Gold Border -->
+<div class="absolute inset-4 border border-tertiary-fixed/20 rounded-lg pointer-events-none"></div>
+</div>
+<div class="flex gap-6 items-center text-on-surface-variant pt-4 border-t border-outline-variant/30">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a smiling person in a luxury restaurant setting, warm ambient lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATCp0VPMxKW_mzrgMWmEQxbh4dUfHkuF8hZ6C7J19WQvDd115Unu8mSkF00Tirjcb5qzcqO81gNVjZ_mjm4egAyfxbqy5Kl8mX6FdsfVsxPxZ9_TPciVRPHsSe85dy9l8ZcLTSr7z6MA-4BmDx2mms5p0hrw1hN51gXpheMdDxkQsojCUi-7bGmfN4sE_k1B2Tz_PHVVBhpPaCJDHIXZmsQr7-YWw7vtjcf89iVajKL70MdPjK62iT"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of another person enjoying a high-end dining experience, blurred restaurant background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmerIUWKpWNgY_DQ-a3URDW9a0iIJ79o6j0Kk1zTRaQ1DqkqTbz661h15Sjbw2UsqujENTbfa0Q26MG2RF-WDcRmUhfxBtCZ8VNN6dEh7gKImkF9ltIG9ceraw7FKuGTjcJphi61Cf1DpK--gww8aC9gT50IrfixgZtBncR_1tQQe2as5Jcy0n24CXiM8pBBBFxlMiYHPxXYZsnuAu10FLVetWxCdm1csmjNkJLI7EwZtooEmLPBCA"/>
+</div>
+</div>
+<p class="text-label-caps uppercase tracking-wide">Joined by 1,200+ guests this month</p>
+</div>
+</section>
+<!-- Right Column: Configuration Form -->
+<section class="clay-card p-8 md:p-12 rounded-xl border border-outline-variant/30 space-y-10">
+<!-- Amount Selector -->
+<div class="space-y-6">
+<label class="font-label-caps text-label-caps uppercase text-primary tracking-widest">Select Amount</label>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<button class="amount-btn py-4 rounded-lg border border-outline-variant hover:border-primary transition-all text-body-md font-medium" data-value="100" onclick="updateAmount(100)">100 AED</button>
+<button class="amount-btn py-4 rounded-lg border-2 border-primary bg-primary/5 text-primary transition-all text-body-md font-bold" data-value="200" onclick="updateAmount(200)">200 AED</button>
+<button class="amount-btn py-4 rounded-lg border border-outline-variant hover:border-primary transition-all text-body-md font-medium" data-value="300" onclick="updateAmount(300)">300 AED</button>
+<button class="amount-btn py-4 rounded-lg border border-outline-variant hover:border-primary transition-all text-body-md font-medium" data-value="500" onclick="updateAmount(500)">500 AED</button>
+</div>
+<div class="relative mt-2">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-3 px-0 font-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:ring-0 transition-all" oninput="updateCustomAmount(this.value)" placeholder="Enter Custom Amount" type="number"/>
+<span class="absolute right-0 top-3 text-label-caps text-on-surface-variant">AED</span>
+</div>
+</div>
+<!-- Personalization -->
+<div class="space-y-6">
+<label class="font-label-caps text-label-caps uppercase text-primary tracking-widest">Personalize Your Message</label>
+<div class="space-y-4">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-3 px-0 font-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:ring-0 transition-all" placeholder="Recipient's Name" type="text"/>
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant py-3 px-0 font-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:ring-0 transition-all resize-none" placeholder="Write a personal note... (Optional)" rows="3"></textarea>
+</div>
+</div>
+<!-- Delivery Method -->
+<div class="space-y-6">
+<label class="font-label-caps text-label-caps uppercase text-primary tracking-widest">Delivery Option</label>
+<div class="flex gap-4">
+<label class="flex-1 cursor-pointer">
+<input checked="" class="hidden peer" name="delivery" type="radio" value="email"/>
+<div class="flex items-center justify-center gap-3 p-4 border border-outline-variant rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">mail</span>
+<span class="font-body-md">Email</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="hidden peer" name="delivery" type="radio" value="whatsapp"/>
+<div class="flex items-center justify-center gap-3 p-4 border border-outline-variant rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">chat</span>
+<span class="font-body-md">WhatsApp</span>
+</div>
+</label>
+</div>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-3 px-0 font-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:ring-0 transition-all" id="delivery-input" placeholder="Enter Email Address" type="text"/>
+</div>
+<!-- CTA -->
+<div class="pt-6 space-y-4">
+<button class="w-full bg-primary text-surface py-5 rounded-full font-label-caps uppercase tracking-widest text-label-caps hover:bg-primary/90 transition-all active:scale-[0.98] flex items-center justify-center gap-3 shadow-lg shadow-primary/20">
+                        Buy Now
+                        <span class="material-symbols-outlined text-tertiary-fixed">arrow_forward</span>
+</button>
+<p class="text-center text-on-surface-variant/60 text-[11px] font-label-caps uppercase tracking-tighter">
+                        Secure Checkout Powered by Stripe • No Expiry Date
+                    </p>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation (Shared Component) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-sm border-t-[0.5px] border-outline-variant shadow-[0_-4px_24px_rgba(45,36,30,0.06)] flex justify-around items-center px-4 pb-safe h-20">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Reserve</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary after:content-[''] after:w-1 after:h-1 after:bg-tertiary after:rounded-full after:mt-1 transition-all duration-300 translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">card_giftcard</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Gifts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Events</span>
+</a>
+</nav>
+<script>
+        function updateAmount(val) {
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-primary', 'bg-primary/5', 'text-primary', 'font-bold');
+                btn.classList.add('border', 'border-outline-variant', 'font-medium');
+                if(parseInt(btn.getAttribute('data-value')) === val) {
+                    btn.classList.remove('border', 'border-outline-variant', 'font-medium');
+                    btn.classList.add('border-2', 'border-primary', 'bg-primary/5', 'text-primary', 'font-bold');
+                }
+            });
+            document.getElementById('preview-amount').innerText = val;
+        }
+
+        function updateCustomAmount(val) {
+            if(val > 0) {
+                document.querySelectorAll('.amount-btn').forEach(btn => {
+                    btn.classList.remove('border-2', 'border-primary', 'bg-primary/5', 'text-primary', 'font-bold');
+                    btn.classList.add('border', 'border-outline-variant', 'font-medium');
+                });
+                document.getElementById('preview-amount').innerText = val;
+            } else if (val === "") {
+                updateAmount(200);
+            }
+        }
+
+        // Delivery input toggle
+        document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const input = document.getElementById('delivery-input');
+                if(e.target.value === 'email') {
+                    input.placeholder = "Enter Email Address";
+                    input.type = "email";
+                } else {
+                    input.placeholder = "Enter Phone Number";
+                    input.type = "tel";
+                }
+            });
+        });
+
+        // Tilt effect for card
+        const card = document.getElementById('gift-card-preview');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body></html>
