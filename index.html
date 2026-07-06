@@ -83,25 +83,25 @@
 
         /* Phone Frame styles */
         .phone-frame {
-            width: 390px;
-            height: 844px;
+            width: 312px;
+            height: 676px;
             background-color: #000;
-            border-radius: 50px;
-            padding: 11px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            border-radius: 42px;
+            padding: 9px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9);
             position: relative;
-            border: 4px solid #333;
+            border: 3.5px solid #333;
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
-            border-radius: 40px;
+            border-radius: 32px;
             overflow: hidden;
             background-color: #FAF3E0;
             position: relative;
             display: flex;
-            flex-col: column;
+            flex-direction: column;
         }
 
         /* Screen transitions */
@@ -226,82 +226,78 @@
             <div class="bg-charcoal/40 border border-terracotta/10 p-6 rounded-2xl space-y-4 backdrop-blur-md">
                 <p class="text-sm text-ivory/80 leading-relaxed font-light">
                     Ranked <strong class="text-gold font-bold">#43 on MENA's 50 Best Restaurants 2026</strong>. 
-                    This UI prototype captures the warm, candlelit, rustic yet refined Central American ambiance.
+                    This UI prototype showcases the warm, candlelit, and refined Central American hospitality experience.
                 </p>
-
-                <!-- Color Palette -->
-                <div class="space-y-2 pt-2 border-t border-ivory/10">
-                    <span class="text-[10px] uppercase tracking-widest text-ivory/50">Artisanal Palette</span>
-                    <div class="flex gap-2">
-                        <div class="flex flex-col items-center gap-1 flex-1">
-                            <div class="w-full h-8 rounded bg-[#C4613A] palette-swatch" title="Deep Terracotta #C4613A"></div>
-                            <span class="text-[9px] text-ivory/40">Terracotta</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1 flex-1">
-                            <div class="w-full h-8 rounded bg-[#FAF3E0] border border-ivory/20 palette-swatch" title="Warm Ivory #FAF3E0"></div>
-                            <span class="text-[9px] text-ivory/40">Ivory</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1 flex-1">
-                            <div class="w-full h-8 rounded bg-[#2D5016] palette-swatch" title="Forest Green #2D5016"></div>
-                            <span class="text-[9px] text-ivory/40">Forest</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1 flex-1">
-                            <div class="w-full h-8 rounded bg-[#C9A84C] palette-swatch" title="Gold #C9A84C"></div>
-                            <span class="text-[9px] text-ivory/40">Gold</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1 flex-1">
-                            <div class="w-full h-8 rounded bg-[#1C1C1C] palette-swatch" title="Charcoal #1C1C1C"></div>
-                            <span class="text-[9px] text-ivory/40">Charcoal</span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Screen Quick Jumper -->
-            <div class="space-y-3">
-                <span class="text-xs uppercase tracking-widest text-ivory/60">Demo Screens Quick Access</span>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                    <button onclick="gotoScreen('splash')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-gold"></span> Splash (1)
+            <div class="space-y-4 pt-2">
+                <span class="text-xs uppercase tracking-[0.2em] text-gold font-semibold block">Experience the App</span>
+                <div class="space-y-2 h-[380px] overflow-y-auto pr-2 custom-scrollbar" id="sidebar-nav">
+                    <button onclick="gotoScreen('splash')" id="btn-nav-splash" class="w-full px-4 py-3 rounded-xl border border-terracotta bg-terracotta/10 hover:border-terracotta/60 flex items-center justify-between text-white font-bold transition-all duration-300 text-left shadow-[0_0_15px_rgba(196,97,58,0.15)]">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">motion_photos_on</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Splash Welcome</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-gold uppercase tracking-widest font-bold font-sans">Active</span>
                     </button>
-                    <button onclick="gotoScreen('home')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Home (2)
+                    <button onclick="gotoScreen('home')" id="btn-nav-home" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">home</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Home Screen</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('menu')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Menu (3)
+                    <button onclick="gotoScreen('menu')" id="btn-nav-menu" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">restaurant_menu</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Interactive Menu</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('reservations')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Reserve (4)
+                    <button onclick="gotoScreen('reservations')" id="btn-nav-reservations" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">event_seat</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Table Reservations</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('brunch')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-gold"></span> Sunday Brunch (5)
+                    <button onclick="gotoScreen('brunch')" id="btn-nav-brunch" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">sunny</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Sunday Brunch</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('private-dining')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-gold"></span> Private Dining (6)
+                    <button onclick="gotoScreen('private-dining')" id="btn-nav-private-dining" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">hotel_class</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Private Dining</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('gift-cards')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-gold"></span> Gift Cards (7)
+                    <button onclick="gotoScreen('gift-cards')" id="btn-nav-gift-cards" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">card_membership</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Gift Cards &amp; Vouchers</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('loyalty')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-gold"></span> Loyalty Rewards (8)
+                    <button onclick="gotoScreen('loyalty')" id="btn-nav-loyalty" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">military_tech</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Loyalty Rewards</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
-                    <button onclick="gotoScreen('events')" class="px-3 py-2 text-xs bg-charcoal/60 hover:bg-terracotta/20 border border-ivory/10 hover:border-terracotta/40 rounded-lg text-ivory-light text-left transition-all flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-terracotta"></span> Events (9)
+                    <button onclick="gotoScreen('events')" id="btn-nav-events" class="w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gold text-lg">celebration</span>
+                            <span class="text-xs font-serif serif-title tracking-wide">Recent Events</span>
+                        </div>
+                        <span class="view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans">View</span>
                     </button>
                 </div>
-            </div>
-
-            <!-- Interactive features log -->
-            <div class="bg-[#1C120F]/30 p-4 border border-terracotta/10 rounded-xl space-y-2 text-[12px] text-ivory/60">
-                <span class="text-terracotta font-medium uppercase tracking-wider text-[10px] block">Live State Features</span>
-                <ul class="list-disc pl-4 space-y-1">
-                    <li>Add dishes to order to update the header cart badge.</li>
-                    <li>Toggle "Add to Favourites" heart icons on dishes.</li>
-                    <li>Complete the booking form with guest count (+/-), date, time, and see confirmation.</li>
-                    <li>Adjust Brunch guests and see total AED cost update dynamically.</li>
-                    <li>Select Gift Card amount or input custom value.</li>
-                    <li>Redeem Loyalty Rewards and check visitor log.</li>
-                </ul>
             </div>
         </div>
 
@@ -309,7 +305,7 @@
         <div class="lg:col-span-7 flex justify-center">
             
             <!-- Mobile Device Chassis (iPhone 13/14 Pro mockup dimensions) -->
-            <div class="phone-frame scale-90 md:scale-100 origin-center transition-all duration-300">
+            <div class="phone-frame origin-center transition-all duration-300">
                 
 
 
@@ -1400,6 +1396,28 @@
                 // If sub-screen, we can highlight the parent
                 if (targetId === 'brunch') {
                     navItems.reservations.classList.add('active');
+                }
+            }
+
+            // Update Left Sidebar Nav Active Highlight
+            const sidebarContainer = document.getElementById('sidebar-nav');
+            if (sidebarContainer) {
+                sidebarContainer.querySelectorAll('button').forEach(btn => {
+                    btn.className = "w-full px-4 py-3 rounded-xl border border-terracotta/10 bg-charcoal/30 hover:border-terracotta/40 hover:bg-terracotta/5 flex items-center justify-between text-ivory/80 transition-all duration-300 text-left";
+                    const indicator = btn.querySelector('.view-indicator');
+                    if (indicator) {
+                        indicator.innerText = "View";
+                        indicator.className = "view-indicator text-[10px] text-terracotta uppercase tracking-widest font-bold font-sans";
+                    }
+                });
+                const activeSidebarBtn = document.getElementById(`btn-nav-${targetId}`);
+                if (activeSidebarBtn) {
+                    activeSidebarBtn.className = "w-full px-4 py-3 rounded-xl border border-terracotta bg-terracotta/10 hover:border-terracotta/60 flex items-center justify-between text-white font-bold transition-all duration-300 text-left shadow-[0_0_15px_rgba(196,97,58,0.15)]";
+                    const indicator = activeSidebarBtn.querySelector('.view-indicator');
+                    if (indicator) {
+                        indicator.innerText = "Active";
+                        indicator.className = "view-indicator text-[10px] text-gold uppercase tracking-widest font-bold font-sans";
+                    }
                 }
             }
         }
